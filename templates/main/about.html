@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-16">
+
+  <!-- About Section -->
+  <section class="mb-16">
+    <h2 class="text-4xl font-extrabold text-blue-600 mb-6 animate__animated animate__fadeIn">About Me</h2>
+    <div class="grid md:grid-cols-3 gap-8 items-center animate__animated animate__fadeInUp">
+      <div class="md:col-span-1">
+        <img
+          src="{%static 'img/boye-4.jpg' %}"
+          alt="Ajayi Adeboye Samuel"
+          class="rounded-lg shadow-2xl w-full hover:scale-105 transition-all duration-500 ease-in-out"
+        />
+      </div>
+      <div class="md:col-span-2">
+        <h3 class="text-2xl font-semibold mb-4 text-gray-900">Ajayi Adeboye Samuel</h3>
+        <p class="text-lg mb-4 text-gray-700 animate__animated animate__fadeInUp animate__delay-1s">
+          Detail-oriented backend developer and data analyst with proven expertise in Python, Django, and
+          RESTful API development. Adept at leveraging technology to solve complex problems, optimize operations, and drive decision-making through data analysis.
+        </p>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p><strong>Birthday:</strong> 15 June 1989</p>
+            <p><strong>Phone:</strong> +234 703 349 5178</p>
+            <p><strong>City:</strong> Lagos, Nigeria</p>
+          </div>
+          <div>
+            <p><strong>Degree:</strong> B.Sc. Accounting</p>
+            <p><strong>Email:</strong> ajayiadeboye2002@gmail.com</p>
+            <p><strong>Freelance:</strong> Available</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services/Skills Section -->
+  <section class="mb-16">
+    <h2 class="text-4xl font-extrabold text-blue-600 mb-6 animate__animated animate__fadeIn">Services & Expertise</h2>
+    <p class="text-lg mb-6 text-gray-700 animate__animated animate__fadeInUp animate__delay-1s">
+      Leveraging technology to build scalable systems, optimize data flow, and deliver actionable insights through robust backend development, data analytics solutions, and business optimization strategies.
+    </p>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
+        <h3 class="text-xl font-semibold mb-4 text-blue-600">Backend Development</h3>
+        <p class="text-gray-600">Building scalable backend APIs using Python and Django. Specializing in RESTful API development and database optimization to power web applications.</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
+        <h3 class="text-xl font-semibold mb-4 text-blue-600">Data Analytics</h3>
+        <p class="text-gray-600">Transforming raw data into meaningful insights using tools like Pandas and NumPy. Helping businesses make data-driven decisions through analysis and visualization.</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
+        <h3 class="text-xl font-semibold mb-4 text-blue-600">Business Optimization</h3>
+        <p class="text-gray-600">Optimizing business operations with data-driven strategies. Using data analysis and performance monitoring to enhance efficiency and profitability.</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
+        <h3 class="text-xl font-semibold mb-4 text-blue-600">API Integration</h3>
+        <p class="text-gray-600">Integrating external services into applications for seamless functionality. Expertise in integrating payment systems, third-party APIs, and real-time data services.</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
+        <h3 class="text-xl font-semibold mb-4 text-blue-600">Cloud Deployment</h3>
+        <p class="text-gray-600">Deploying applications on cloud platforms like Render, ensuring reliability, scalability, and real-time performance.</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-blue-50 transition-all duration-300 transform hover:scale-105">
+        <h3 class="text-xl font-semibold mb-4 text-blue-600">Financial Analytics API</h3>
+        <p class="text-gray-600">Building real-time financial analytics systems to help businesses track profitability, report, and forecast future trends.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="mb-16">
+    <h2 class="text-4xl font-extrabold text-blue-600 mb-6 animate__animated animate__fadeIn">Notable Projects</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      {% for project in projects %}
+        <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">
+          <h3 class="text-xl font-semibold mb-4 text-blue-600">{{ project.title }}</h3>
+          <ul class="list-disc pl-5 space-y-2 text-gray-700">
+            {% for detail in project.details %}
+              <li>{{ detail }}</li>
+            {% endfor %}
+          </ul>
+          <p class="mt-2 text-sm text-gray-600">Technologies: 
+            <span class="font-medium text-blue-600">
+              {% for tech in project.technologies %}
+                {{ tech }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
+            </span>
+          </p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Education & Certifications Section -->
+  <section>
+    <h2 class="text-4xl font-extrabold text-blue-600 mb-6 animate__animated animate__fadeIn">Education & Certifications</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h3 class="text-xl font-semibold mb-4 text-blue-600">Education</h3>
+        <p class="font-semibold">{{ education.degree }}</p>
+        <p class="text-gray-600">{{ education.university }}</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h3 class="text-xl font-semibold mb-4 text-blue-600">Certifications</h3>
+        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+          {% for certification in certifications %}
+            <li>{{ certification }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock content %}

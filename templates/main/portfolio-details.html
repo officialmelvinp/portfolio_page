@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 text-white py-20">
+  <div class="container mx-auto px-4">
+    <!-- Header -->
+    <header class="text-center mb-16 animate__animated animate__fadeIn">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">{{ project.title }}</h1>
+      <p class="text-xl md:text-2xl text-blue-200">{{ project.description }}</p>
+    </header>
+
+    <!-- Project Details -->
+    <div class="grid md:grid-cols-2 gap-8 mb-16">
+      <!-- Project Images -->
+      <div class="space-y-8 animate__animated animate__fadeInLeft">
+        <div class="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl">
+          <img src="{% static project.images.0 %}" alt="{{ project.title }} - Main Image" class="w-full h-64 object-cover">
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+          {% for image in project.images|slice:"1:" %}
+            <div class="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl">
+              <img src="{% static image %}" alt="{{ project.title }} - Image {{ forloop.counter|add:"1" }}" class="w-full h-24 object-cover">
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Project Info -->
+      <div class="space-y-8 animate__animated animate__fadeInRight">
+        <div class="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl p-6">
+          <h3 class="text-2xl font-bold mb-4 text-emerald-400">Project Details</h3>
+          <ul class="space-y-2 text-blue-200">
+            <li><span class="font-semibold">Category:</span> {{ project.category }}</li>
+            <li><span class="font-semibold">Project Type:</span> {{ project.project_type }}</li>
+            <li><span class="font-semibold">Date:</span> {{ project.project_date }}</li>
+            <li>
+              <span class="font-semibold">GitHub:</span> 
+              <a href="{{ project.github_url }}" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors duration-300">
+                View Repository <i class="bi bi-github ml-1"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl p-6">
+          <h3 class="text-2xl font-bold mb-4 text-emerald-400">Key Features</h3>
+          <ul class="list-disc list-inside space-y-2 text-blue-200">
+            {% for detail in project.details %}
+              <li>{{ detail }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technologies -->
+    <section class="mb-16 animate__animated animate__fadeInUp">
+      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Technologies Used</h2>
+      <div class="flex flex-wrap justify-center gap-4">
+        {% for tech in project.technologies %}
+          <div class="bg-white/10 backdrop-blur-md rounded-full px-4 py-2 text-sm font-semibold text-emerald-400">
+            {{ tech }}
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <div class="flex justify-center space-x-4 animate__animated animate__fadeInUp">
+      <a href="{% url 'portfolio' %}" class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-blue-500 transition-colors duration-300">
+        &larr; Back to Portfolio
+      </a>
+      <a href="{% url 'contact' %}" class="inline-block bg-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-600 transition-colors duration-300">
+        Let's Discuss This Project
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock content %}

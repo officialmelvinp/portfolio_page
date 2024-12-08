@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 text-white py-20">
+  <div class="container mx-auto px-4">
+    <!-- Header -->
+    <header class="text-center mb-16 animate__animated animate__fadeIn">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Connect for Innovation</h1>
+      <p class="text-xl md:text-2xl text-blue-200">Let's Shape the Future Together</p>
+    </header>
+
+    <div class="grid md:grid-cols-2 gap-12">
+      <!-- Contact Information -->
+      <div class="animate__animated animate__fadeInLeft">
+        <h2 class="text-3xl font-bold mb-6 text-blue-300">Get in Touch</h2>
+        <div class="space-y-4">
+          <div class="flex items-center">
+            <i class="bi bi-geo-alt text-emerald-400 text-2xl mr-4"></i>
+            <p>9 George Ogundele Crescent, Lagos</p>
+          </div>
+          <div class="flex items-center">
+            <i class="bi bi-telephone text-emerald-400 text-2xl mr-4"></i>
+            <p>+234 70 33 49 5178</p>
+          </div>
+          <div class="flex items-center">
+            <i class="bi bi-envelope text-emerald-400 text-2xl mr-4"></i>
+            <p>ajayiadeboye2002@gmail.com</p>
+          </div>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="mt-8">
+          <h3 class="text-2xl font-bold mb-4 text-blue-300">Connect Online</h3>
+          <div class="flex space-x-4">
+            <a href="https://www.linkedin.com/in/adeboye-melvin" class="text-blue-400 hover:text-emerald-400 transition-colors duration-300">
+              <i class="bi bi-linkedin text-3xl"></i>
+            </a>
+            <a href="https://github.com/officialmelvinp" class="text-blue-400 hover:text-emerald-400 transition-colors duration-300">
+              <i class="bi bi-github text-3xl"></i>
+            </a>
+            <a href="https://x.com/officialmelvinp" class="text-blue-400 hover:text-emerald-400 transition-colors duration-300">
+              <i class="bi bi-twitter text-3xl"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <form action="{% url 'contact' %}" method="post" class="space-y-6 animate__animated animate__fadeInRight">
+        {% csrf_token %}
+        <div>
+          <label for="name" class="block text-sm font-medium text-blue-300">Name</label>
+          <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 bg-white/10 border border-blue-300 rounded-md text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-blue-300">Email</label>
+          <input type="email" id="email" name="email" required class="mt-1 block w-full px-3 py-2 bg-white/10 border border-blue-300 rounded-md text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium text-blue-300">Message</label>
+          <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-3 py-2 bg-white/10 border border-blue-300 rounded-md text-white placeholder-blue-300 focus:outline-none focus:ring-2 focus:ring-emerald-400"></textarea>
+        </div>
+        <div>
+          <button type="submit" class="w-full bg-emerald-500 text-white font-bold py-3 px-4 rounded-full hover:bg-emerald-600 transition-colors duration-300">Send Message</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Google Maps -->
+    <div class="mt-20 animate__animated animate__fadeInUp">
+      <h2 class="text-3xl font-bold mb-6 text-blue-300 text-center">Find Us</h2>
+      <div class="rounded-xl overflow-hidden shadow-2xl">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126915.37076463385!2d3.3267982041573444!3d6.524379201544816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b8b2cfd7f78db%3A0x94e8d619075e5af9!2sLagos%2C%20Nigeria!5e0!3m2!1sen!2sng!4v1676961290123!5m2!1sen!2sng" 
+          width="100%" 
+          height="450" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+

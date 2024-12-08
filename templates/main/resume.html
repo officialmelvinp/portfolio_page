@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="bg-gradient-to-br from-gray-900 to-blue-900 min-h-screen text-white py-20">
+  <div class="container mx-auto px-4">
+    <!-- Header -->
+    <header class="text-center mb-16 animate__animated animate__fadeIn">
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Ajayi Adeboye Samuel</h1>
+      <p class="text-xl md:text-2xl text-blue-200">Backend Developer | Data Analyst | Innovator</p>
+    </header>
+
+    <!-- Summary -->
+    <section class="mb-20 animate__animated animate__fadeInUp">
+      <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl">
+        <h2 class="text-3xl font-bold mb-4 text-blue-300">Professional Summary</h2>
+        <p class="text-lg leading-relaxed">
+          Visionary backend developer and data analyst with a proven track record of leveraging cutting-edge technologies to build scalable systems and derive actionable insights. Committed to pushing the boundaries of what's possible in software development and data science.
+        </p>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="mb-20">
+      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Pioneering Experiences</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300 animate__animated animate__fadeInLeft">
+          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Backend Development Intern</h3>
+          <p class="text-blue-200 mb-2">InternPulse | October 2024 – Present</p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Architected scalable APIs powering next-gen library and healthcare systems</li>
+            <li>Pioneered data scraping automation using Selenium, boosting analytics capabilities</li>
+            <li>Developed groundbreaking financial analytics APIs with real-time insights</li>
+          </ul>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300 animate__animated animate__fadeInRight">
+          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Operations Innovator</h3>
+          <p class="text-blue-200 mb-2">Premier Lottery, Lagos | 2017 – Present</p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Revolutionized operational efficiency across 50+ outlets, driving a 20% sales surge</li>
+            <li>Implemented cutting-edge audit processes, fortifying financial security</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="mb-20 animate__animated animate__fadeInUp">
+      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Technological Prowess</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {% for skill in skills %}
+          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 text-center transform hover:scale-110 transition-all duration-300">
+            <span class="text-lg font-semibold text-emerald-400">{{ skill }}</span>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="mb-20">
+      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Educational Foundation</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl animate__animated animate__fadeInLeft">
+          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Bachelor of Science in Accounting</h3>
+          <p class="text-blue-200">Olabisi Onabanjo University</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl animate__animated animate__fadeInRight">
+          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Certifications</h3>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>Backend with Python Django - Univelcity</li>
+            <li>Data Analytics Professional Program - One Campus Academy</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center animate__animated animate__fadeInUp">
+      <a href="{%url 'contact' %}" class="inline-block bg-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-600 transition-colors duration-300">Let's Innovate Together</a>
+    </section>
+  </div>
+</div>
+{% endblock content %}
+
