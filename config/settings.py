@@ -1,10 +1,14 @@
-
 from pathlib import Path
 from decouple import config, Csv
+import dj_database_url
+import os
+
+import logging
+logger = logging.getLogger(__name__)
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -16,7 +20,6 @@ SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
-
 
 # Application definition
 
@@ -32,6 +35,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add this line
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -61,29 +65,46 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-if DEBUG:
+DATABASE_URL = config('DATABASE_URL', default=None)
+logger.error(f"DATABASE_URL: {DATABASE_URL}")
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+    }
+    logger.error(f"Using DATABASE_URL: {DATABASES['default']}")
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('DATABASE_NAME'),
-            'USER': config('DATABASE_USER'),
-            'PASSWORD': config('DATABASE_PASSWORD'),
-            'HOST': config('DATABASE_HOST', default='localhost'),
-            'PORT': config('DATABASE_PORT', default='5433'),
-        }
-    }
+    logger.error("Using SQLite database")
+    
 
+# Database
+# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# if DEBUG:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': config('DATABASE_NAME'),
+#             'USER': config('DATABASE_USER'),
+#             'PASSWORD': config('DATABASE_PASSWORD'),
+#             'HOST': config('DATABASE_HOST', default='localhost'),
+#             'PORT': config('DATABASE_PORT', default='5432'),
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -103,7 +124,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -114,7 +134,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -129,33 +148,18 @@ STATICFILES_DIRS = [
 # Only required when you're collecting static files for production (for dev, this is not mandatory)
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-
-# STATIC_URL = 'static/'
-# STATICFILES_DIRS=[BASE_DIR / "design/static"]
-# STATIC_ROOT=BASE_DIR / "static_root"
-# MEDIA_URL= 'media/'
-# MEDIA_ROOT= BASE_DIR / "mediafiles"
+# Add this line for WhiteNoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
-
 # Email settings
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your_email@gmail.com'
-EMAIL_HOST_PASSWORD = 'your_app_password'
-DEFAULT_FROM_EMAIL = 'your_email@gmail.com'
-ADMIN_EMAIL = 'your_admin_email@example.com'
+DEFAULT_FROM_EMAIL = 'ajayiadeboye2002@gmail.com'
+ADMIN_EMAIL = 'ajayiadeboye2002@example.com'
 
-# Twilio settings for WhatsApp
-TWILIO_ACCOUNT_SID = 'your_twilio_account_sid'
-TWILIO_AUTH_TOKEN = 'your_twilio_auth_token'
-TWILIO_WHATSAPP_NUMBER = 'your_twilio_whatsapp_number'
-YOUR_WHATSAPP_NUMBER = 'your_personal_whatsapp_number'
+# For development (prints emails to console)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

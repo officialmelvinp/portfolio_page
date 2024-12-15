@@ -47,7 +47,7 @@
       </div>
 
       <!-- Contact Form -->
-      <form action="{% url 'contact' %}" method="post" class="space-y-6 animate__animated animate__fadeInRight">
+      <form id="contactForm" class="space-y-6 animate__animated animate__fadeInRight">
         {% csrf_token %}
         <div>
           <label for="name" class="block text-sm font-medium text-blue-300">Name</label>
@@ -84,5 +84,28 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const response = await fetch('/contact/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify(Object.fromEntries(formData))
+    });
+    const result = await response.json();
+    if (result.status === 'success') {
+      alert('Message sent successfully!');
+      e.target.reset();
+    } else {
+      alert('Failed to send message. Please try again.');
+    }
+  });
+</script>
+
 {% endblock content %}
 

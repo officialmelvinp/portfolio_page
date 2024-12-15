@@ -5,6 +5,9 @@ from django.conf import settings
 from .models import ContactSubmission
 import requests
 import random
+from django.http import JsonResponse
+import json
+
 
 
 def home_page_view(request):
@@ -92,42 +95,43 @@ def about_page_view(request):
     return render(request, 'main/about.html', context)
 
 
+
+
+
+
 def contact_page_view(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        message = request.POST.get('message')
+    if request.method == 'GET':
+        return render(request, "main/contact.html")
+    
+    elif request.method == 'POST':
+        data = json.loads(request.body)
+        name = data.get('name')
+        email = data.get('email')
+        message = data.get('message')
 
         # Save to database
         ContactSubmission.objects.create(name=name, email=email, message=message)
 
         # Send email
-        send_mail(
-            subject=f"New contact form submission from {name}",
-            message=f"Name: {name}\nEmail: {email}\nMessage: {message}",
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.ADMIN_EMAIL],
-            fail_silently=False,
-        )
+        try:
+            send_mail(
+                subject=f"New contact form submission from {name}",
+                message=f"Name: {name}\nEmail: {email}\nMessage: {message}",
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[settings.ADMIN_EMAIL],
+                fail_silently=False,
+            )
+            email_sent = True
+        except Exception as e:
+            email_sent = False
+            print(f"Error sending email: {str(e)}")
 
-        # Send WhatsApp message (using Twilio API)
-        twilio_account_sid = settings.TWILIO_ACCOUNT_SID
-        twilio_auth_token = settings.TWILIO_AUTH_TOKEN
-        twilio_whatsapp_number = settings.TWILIO_WHATSAPP_NUMBER
-        your_whatsapp_number = settings.YOUR_WHATSAPP_NUMBER
+        return JsonResponse({
+            "status": "success" if email_sent else "error",
+            "message": "Form submitted successfully" if email_sent else "Error sending email"
+        })
 
-        url = f"https://api.twilio.com/2010-04-01/Accounts/{twilio_account_sid}/Messages.json"
-        payload = {
-            "Body": f"New contact form submission:\nName: {name}\nEmail: {email}\nMessage: {message}",
-            "From": f"whatsapp:{twilio_whatsapp_number}",
-            "To": f"whatsapp:{your_whatsapp_number}"
-        }
-        auth = (twilio_account_sid, twilio_auth_token)
-        response = requests.post(url, data=payload, auth=auth)
-
-        return redirect('contact_success')
-
-    return render(request, "main/contact.html")
+    return JsonResponse({"status": "error", "message": "Invalid request method"})
 
 def contact_success_view(request):
     return render(request, "main/contact_success.html")
@@ -151,7 +155,7 @@ def portfolio_page_view(request):
             'short_description': 'Data analysis of IMF economic indicators',
             'image': 'img/imf.jpg',
             'category': 'Data Analysis',
-            'github_url': 'https://github.com/officialmelvinp/group5-imf-analysis'
+            'github_url': 'https://github.com/officialmelvinp/group5-da-dev-db'
         },
         {
             'id': 'healthcare-app',
@@ -206,7 +210,7 @@ def portfolio_detail_view(request, project_id):
             'category': 'Data Analysis',
             'project_type': 'Web Scraping & Analysis',
             'project_date': 'September 2024',
-            'github_url': 'https://github.com/officialmelvinp/group5-imf-analysis',
+            'github_url': 'https://github.com/officialmelvinp/group5-da-dev-db',
             'details': [
                 'Automated data extraction from IMF website',
                 'Comprehensive analysis of economic indicators',
@@ -355,6 +359,4 @@ def resume_page_view(request):
 def services_page_view(request):
     return render(request, "main/services.html")
 
-def starter_page_view(request):
-    return render(request, "main/starter-page.html")
 
