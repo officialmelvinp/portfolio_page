@@ -1,11 +1,7 @@
 from pathlib import Path
 from decouple import config, Csv
-import dj_database_url
 import os
-
-import logging
-logger = logging.getLogger(__name__)
-
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -64,47 +60,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
-
-DATABASE_URL = config('DATABASE_URL', default=None)
-logger.error(f"DATABASE_URL: {DATABASE_URL}")
-
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
-    }
-    logger.error(f"Using DATABASE_URL: {DATABASES['default']}")
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-    logger.error("Using SQLite database")
-    
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# if DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql',
-#             'NAME': config('DATABASE_NAME'),
-#             'USER': config('DATABASE_USER'),
-#             'PASSWORD': config('DATABASE_PASSWORD'),
-#             'HOST': config('DATABASE_HOST', default='localhost'),
-#             'PORT': config('DATABASE_PORT', default='5432'),
-#         }
-#     }
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default='sqlite:///db.sqlite3'),
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
