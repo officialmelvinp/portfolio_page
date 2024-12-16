@@ -19,9 +19,6 @@
       "src": "/(.*)",
       "dest": "config/wsgi.py"
     }
-  ],
-  "env": {
-    "PYTHONPATH": "/var/task"
-  }
+  ]
 }
 
