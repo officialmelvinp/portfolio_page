@@ -1,0 +1,9 @@
+[build]
+  # Command to build the static frontend
+  command = "python manage.py collectstatic --noinput"
+  publish = "static/"  # Directory containing static files to be served
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
