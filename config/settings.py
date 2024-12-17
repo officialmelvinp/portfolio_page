@@ -13,9 +13,10 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = True if os.getenv('DJANGOAPPMODE') == 'Debug' else False
+print(f'Application running in debug mode: {DEBUG}')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ['elmelvinp.herokuapp.com', '127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
@@ -26,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'design',
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
