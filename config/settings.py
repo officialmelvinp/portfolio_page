@@ -13,7 +13,12 @@ load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True if os.getenv('DJANGOAPPMODE') == 'Debug' else False
+# Fetch the environment variable, with a fallback to 'False'
+DJANGO_APP_MODE = os.getenv('DJANGOAPPMODE', 'False').lower()
+
+# Set DEBUG based on the environment variable
+DEBUG = DJANGO_APP_MODE == 'debug'
+
 print(f'Application running in debug mode: {DEBUG}')
 
 ALLOWED_HOSTS = ['elmelvinp.herokuapp.com', '127.0.0.1']
