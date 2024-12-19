@@ -6,8 +6,8 @@
   <div class="container mx-auto px-4">
     <!-- Header -->
     <header class="text-center mb-16 animate__animated animate__fadeIn">
-      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Revolutionary Services</h1>
-      <p class="text-xl md:text-2xl text-blue-200">Transforming Ideas into Cutting-Edge Solutions</p>
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Comprehensive Services</h1>
+      <p class="text-xl md:text-2xl text-blue-200">Innovative Solutions Tailored to Your Business Needs</p>
     </header>
 
     <!-- Services Grid -->
@@ -16,7 +16,17 @@
         <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300 animate__animated animate__fadeInUp">
           <i class="{{ service.icon }} text-5xl mb-4 text-emerald-400"></i>
           <h3 class="text-2xl font-bold mb-4 text-blue-300">{{ service.title }}</h3>
-          <p class="text-blue-200">{{ service.description }}</p>
+          <p class="text-blue-200 mb-4">{{ service.description }}</p>
+          <ul class="list-disc pl-5 text-blue-200 mb-4">
+            {% for feature in service.features %}
+              <li>{{ feature }}</li>
+            {% endfor %}
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            {% for tech in service.technologies %}
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">{{ tech }}</span>
+            {% endfor %}
+          </div>
         </div>
       {% endfor %}
     </div>
@@ -36,9 +46,8 @@
 
     <!-- Call to Action -->
     <section class="text-center mt-20 animate__animated animate__fadeInUp">
-      <a href="{% url 'contact' %}" class="inline-block bg-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-600 transition-colors duration-300">Innovate with Us</a>
+      <a href="{% url 'contact' %}" class="inline-block bg-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-600 transition-colors duration-300">Discuss Your Project</a>
     </section>
   </div>
 </div>
 {% endblock content %}
-

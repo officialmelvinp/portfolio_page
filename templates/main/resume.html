@@ -7,78 +7,235 @@
     <!-- Header -->
     <header class="text-center mb-16 animate__animated animate__fadeIn">
       <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Ajayi Adeboye Samuel</h1>
-      <p class="text-xl md:text-2xl text-blue-200">Backend Developer | Data Analyst | Innovator</p>
+      <div class="flex flex-wrap justify-center gap-4 text-lg text-blue-200">
+        <a href="mailto:ajayiadeboye2002@gmail.com" class="hover:text-emerald-400 transition-colors">
+          <span class="inline-flex items-center gap-1">
+            <i class="fas fa-envelope"></i> ajayiadeboye2002@gmail.com
+          </span>
+        </a>
+        <span class="hidden sm:inline">|</span>
+        <a href="tel:+2347033495178" class="hover:text-emerald-400 transition-colors">
+          <span class="inline-flex items-center gap-1">
+            <i class="fas fa-phone"></i> +234 703 349 5178
+          </span>
+        </a>
+        <span class="hidden sm:inline">|</span>
+        <span class="inline-flex items-center gap-1">
+          <i class="fas fa-map-marker-alt"></i> Lagos, Nigeria
+        </span>
+      </div>
+      <div class="flex justify-center gap-4 mt-4">
+        <a href="https://linkedin.com/in/adeboye-melvin" target="_blank" class="text-blue-200 hover:text-emerald-400 transition-colors">
+          <i class="fab fa-linkedin text-2xl"></i>
+        </a>
+        <a href="https://github.com/officialmelvinp" target="_blank" class="text-blue-200 hover:text-emerald-400 transition-colors">
+          <i class="fab fa-github text-2xl"></i>
+        </a>
+      </div>
     </header>
 
-    <!-- Summary -->
+    <!-- Achievement Highlight -->
     <section class="mb-20 animate__animated animate__fadeInUp">
-      <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl">
-        <h2 class="text-3xl font-bold mb-4 text-blue-300">Professional Summary</h2>
-        <p class="text-lg leading-relaxed">
-          Visionary backend developer and data analyst with a proven track record of leveraging cutting-edge technologies to build scalable systems and derive actionable insights. Committed to pushing the boundaries of what's possible in software development and data science.
-        </p>
+      <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl border border-emerald-500/20">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 class="text-3xl font-bold mb-4 text-emerald-400">InternPulse Finalist Achievement</h2>
+            <p class="text-lg text-blue-200 mb-4">
+              Recognized as a top performer in the InternPulse Cohort 5 program, ranking in the top 123 out of 169 participants in Backend Development track.
+            </p>
+            <p class="text-blue-200">
+              <span class="text-emerald-400 font-semibold">Tech Path:</span> Backend Development<br>
+              <span class="text-emerald-400 font-semibold">Issued:</span> December 15th, 2024
+            </p>
+          </div>
+          <div class="order-first md:order-last">
+            <img 
+              src="{% static 'img/finalist.jpeg' %}" 
+              alt="InternPulse Finalist Certificate" 
+              class="rounded-lg shadow-xl hover:scale-105 transition-all duration-500 ease-in-out"
+            >
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Experience -->
     <section class="mb-20">
-      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Pioneering Experiences</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300 animate__animated animate__fadeInLeft">
-          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Backend Development Intern</h3>
-          <p class="text-blue-200 mb-2">InternPulse | October 2024 – Present</p>
-          <ul class="list-disc pl-5 space-y-2">
-            <li>Architected scalable APIs powering next-gen library and healthcare systems</li>
-            <li>Pioneered data scraping automation using Selenium, boosting analytics capabilities</li>
-            <li>Developed groundbreaking financial analytics APIs with real-time insights</li>
-          </ul>
-        </div>
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300 animate__animated animate__fadeInRight">
-          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Operations Innovator</h3>
-          <p class="text-blue-200 mb-2">Premier Lottery, Lagos | 2017 – Present</p>
-          <ul class="list-disc pl-5 space-y-2">
-            <li>Revolutionized operational efficiency across 50+ outlets, driving a 20% sales surge</li>
-            <li>Implemented cutting-edge audit processes, fortifying financial security</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills -->
-    <section class="mb-20 animate__animated animate__fadeInUp">
-      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Technological Prowess</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {% for skill in skills %}
-          <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 text-center transform hover:scale-110 transition-all duration-300">
-            <span class="text-lg font-semibold text-emerald-400">{{ skill }}</span>
+      <h2 class="text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Professional Experience</h2>
+      <div class="space-y-8">
+        <!-- InternPulse Experience -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <div class="flex flex-wrap justify-between items-start mb-4">
+            <div>
+              <h3 class="text-2xl font-semibold text-emerald-400">Backend Development Intern</h3>
+              <p class="text-blue-200">InternPulse</p>
+            </div>
+            <p class="text-blue-200">October 2023 – December 2023</p>
           </div>
-        {% endfor %}
-      </div>
-    </section>
-
-    <!-- Education -->
-    <section class="mb-20">
-      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Educational Foundation</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl animate__animated animate__fadeInLeft">
-          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Bachelor of Science in Accounting</h3>
-          <p class="text-blue-200">Olabisi Onabanjo University</p>
-        </div>
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl animate__animated animate__fadeInRight">
-          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Certifications</h3>
-          <ul class="list-disc pl-5 space-y-2">
-            <li>Backend with Python Django - Univelcity</li>
-            <li>Data Analytics Professional Program - One Campus Academy</li>
+          <ul class="list-disc pl-5 space-y-2 text-blue-200">
+            <li>Designed and implemented scalable backend APIs for Library Management, Healthcare Appointment, and Product Management systems</li>
+            <li>Automated data scraping processes using Selenium, enhancing analytics capabilities</li>
+            <li>Developed financial analytics APIs with real-time insights and external API integration</li>
+            <li>Collaborated with cross-functional teams to optimize API functionality and error handling</li>
           </ul>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Python</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Django</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">REST APIs</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">PostgreSQL</span>
+          </div>
+        </div>
+
+        <!-- Premier Lottery Experience -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <div class="flex flex-wrap justify-between items-start mb-4">
+            <div>
+              <h3 class="text-2xl font-semibold text-emerald-400">Operations Support</h3>
+              <p class="text-blue-200">Premier Lottery, Lagos</p>
+            </div>
+            <p class="text-blue-200">2017 – Present</p>
+          </div>
+          <ul class="list-disc pl-5 space-y-2 text-blue-200">
+            <li>Managed operations across 50+ outlets, improving efficiency by 15% through data-driven decision-making</li>
+            <li>Achieved 20% sales increase over three years through strategic budget optimization</li>
+            <li>Implemented robust audit processes ensuring regulatory compliance and financial security</li>
+          </ul>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Team Management</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Data Analysis</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Operations</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Call to Action -->
+    <!-- Projects -->
+    <section class="mb-20">
+      <h2 class="text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Notable Projects</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Library Management API -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Library Management API</h3>
+          <ul class="list-disc pl-5 space-y-2 text-blue-200 mb-4">
+            <li>Created comprehensive system with advanced filtering capabilities</li>
+            <li>Integrated PostgreSQL and Django signals for automated updates</li>
+            <li>Deployed on Render for real-time data handling</li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Django</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">REST Framework</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">PostgreSQL</span>
+          </div>
+        </div>
+
+        <!-- Healthcare Appointment API -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Healthcare Appointment API</h3>
+          <ul class="list-disc pl-5 space-y-2 text-blue-200 mb-4">
+            <li>Developed system with Google Sign-Up and email verification</li>
+            <li>Designed secure RESTful APIs for profile and appointment management</li>
+            <li>Implemented real-time scheduling and notification system</li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Django</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">SQLite</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Google OAuth</span>
+          </div>
+        </div>
+
+        <!-- Financial Analytics -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Financial Analytics for Renewable Energy</h3>
+          <ul class="list-disc pl-5 space-y-2 text-blue-200 mb-4">
+            <li>Built analytics API for profitability tracking and insights generation</li>
+            <li>Integrated live data consumption from product management services</li>
+            <li>Implemented dynamic date-based filtering for detailed analysis</li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Django</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">PostgreSQL</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">API Integration</span>
+          </div>
+        </div>
+
+        <!-- Product Management API -->
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
+          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Product Management API</h3>
+          <ul class="list-disc pl-5 space-y-2 text-blue-200 mb-4">
+            <li>Developed API for seamless inventory and workflow management</li>
+            <li>Enhanced system performance through database optimization</li>
+            <li>Implemented cloud deployment for scalability</li>
+          </ul>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Django</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">PostgreSQL</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Cloud Deployment</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills & Education -->
+    <div class="grid md:grid-cols-2 gap-8 mb-20">
+      <!-- Technical Skills -->
+      <section>
+        <h2 class="text-3xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Technical Skills</h2>
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl">
+          <div class="space-y-4">
+            <div>
+              <h3 class="text-xl font-semibold mb-2 text-emerald-400">Programming</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Python</span>
+                <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Django</span>
+                <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">REST Framework</span>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2 text-emerald-400">Databases</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">PostgreSQL</span>
+                <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">SQLite</span>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2 text-emerald-400">Tools & Libraries</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Pandas</span>
+                <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">NumPy</span>
+                <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Selenium</span>
+                <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">GitHub</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education & Certifications -->
+      <section>
+        <h2 class="text-3xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Education & Certifications</h2>
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl">
+          <div class="mb-6">
+            <h3 class="text-xl font-semibold mb-2 text-emerald-400">Bachelor of Science in Accounting</h3>
+            <p class="text-blue-200">Olabisi Onabanjo University</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2 text-emerald-400">Certifications</h3>
+            <ul class="list-disc pl-5 space-y-2 text-blue-200">
+              <li>Backend with Python Django - Univelcity</li>
+              <li>Data Analytics Professional Program - One Campus Academy</li>
+              <li>InternPulse Cohort 5 Finalist - Backend Development</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Download Resume -->
     <section class="text-center animate__animated animate__fadeInUp">
-      <a href="{%url 'contact' %}" class="inline-block bg-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-600 transition-colors duration-300">Let's Innovate Together</a>
+      <a href="{% static 'img/portfolio_cv.pdf' %}" download class="inline-block bg-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-600 transition-colors duration-300">
+        <i class="fas fa-download mr-2"></i>Download Resume
+      </a>
     </section>
   </div>
 </div>
 {% endblock content %}
-

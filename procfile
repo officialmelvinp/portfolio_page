@@ -1,1 +1,1 @@
-web: cd ./portfolio && gunicorn config.wsgi
+echo "web: cd ./portfolio && gunicorn config.wsgi" > Procfile

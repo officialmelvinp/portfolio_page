@@ -357,6 +357,91 @@ def resume_page_view(request):
     return render(request, "main/resume.html")
 
 def services_page_view(request):
-    return render(request, "main/services.html")
+    services = [
+        {
+            'title': 'Backend Development',
+            'icon': 'fas fa-code',
+            'description': 'Robust and scalable backend solutions tailored to your business needs.',
+            'features': [
+                'Custom API development',
+                'Database design and optimization',
+                'Authentication and security implementation',
+            ],
+            'technologies': ['Python', 'Django', 'PostgreSQL', 'RESTful APIs']
+        },
+        {
+            'title': 'Data Engineering & Analytics',
+            'icon': 'fas fa-chart-line',
+            'description': 'Transform raw data into actionable insights for informed decision-making.',
+            'features': [
+                'Data pipeline development',
+                'ETL process implementation',
+                'Advanced analytics and visualizations',
+            ],
+            'technologies': ['Pandas', 'NumPy', 'Selenium']
+        },
+        {
+            'title': 'Financial Analysis',
+            'icon': 'fas fa-calculator',
+            'description': 'Comprehensive financial solutions to drive your business forward.',
+            'features': [
+                'Financial modeling and forecasting',
+                'Business intelligence dashboards',
+                'Risk assessment and management',
+            ],
+            'technologies': ['Excel', 'Python', 'SQL']
+        },
+        {
+            'title': 'Process Optimization',
+            'icon': 'fas fa-cogs',
+            'description': 'Streamline operations and boost efficiency through technology integration.',
+            'features': [
+                'Business process analysis',
+                'Workflow automation',
+                'Performance metrics and KPI tracking',
+            ],
+            'technologies': ['Lean Six Sigma', 'Automation tools', 'Process mapping software']
+        },
+        {
+            'title': 'System Architecture',
+            'icon': 'fas fa-network-wired',
+            'description': 'Design scalable and efficient system architectures for optimal performance.',
+            'features': [
+                'Microservices architecture design',
+                'Cloud-based solutions implementation',
+                'Scalability and performance optimization',
+            ],
+            'technologies': ['AWS', 'Docker', 'Kubernetes', 'Microservices']
+        },
+    #     {
+    #         'title': 'Innovation Consulting',
+    #         'icon': 'fas fa-lightbulb',
+    #         'description': 'Strategic guidance on technology adoption and digital transformation.',
+    #         'features': [
+    #             'Technology stack assessment and recommendations',
+    #             'Digital transformation roadmap development',
+    #             'Emerging technology integration strategies',
+    #         ],
+    #         'technologies': ['AI/ML', 'Blockchain', 'IoT', 'Cloud Computing']
+    #     },
+     ]
 
+    testimonials = [
+        
+        {
+            'content': "Ajayi's expertise in backend development and data analytics has been instrumental in scaling our operations. His insights have directly contributed to a 30% increase in our operational efficiency.",
+            'author': 'Pere Afezu'
+        },
+        {
+            'content': 'The financial analysis tools developed by Ajayi have revolutionized our decision-making process. We now have real-time insights that have improved our profitability by 25%.',
+            'author': 'ifeka odira hilary'
+        }
+    ]
+
+    context = {
+        'services': services,
+        'testimonials': testimonials
+    }
+
+    return render(request, 'main/services.html', context)
 
