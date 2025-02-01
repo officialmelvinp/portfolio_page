@@ -153,3 +153,7 @@ cython_debug/
 # Ignore other static files globally (if needed)
 static/
 staticfiles/
+/staticfiles/
+/staticfiles
+staticfiles
+/media/

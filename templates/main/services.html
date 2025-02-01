@@ -7,7 +7,7 @@
     <!-- Header -->
     <header class="text-center mb-16 animate__animated animate__fadeIn">
       <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Comprehensive Services</h1>
-      <p class="text-xl md:text-2xl text-blue-200">Innovative Solutions Tailored to Your Business Needs</p>
+      <p class="text-xl md:text-2xl text-blue-200">Full-Stack Solutions Tailored to Your Business Needs</p>
     </header>
 
     <!-- Services Grid -->
@@ -31,6 +31,32 @@
       {% endfor %}
     </div>
 
+    <!-- Featured Projects -->
+    <section class="mt-20 animate__animated animate__fadeInUp">
+      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Featured Projects</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 shadow-2xl">
+          <h3 class="text-2xl font-bold mb-4 text-emerald-400">Dolapo Udekwe Makeup Artist Website</h3>
+          <p class="text-blue-200 mb-4">Full-stack Next.js website with online booking system and responsive design.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Next.js</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">React</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Tailwind CSS</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Supabase</span>
+          </div>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 shadow-2xl">
+          <h3 class="text-2xl font-bold mb-4 text-emerald-400">Library Management API</h3>
+          <p class="text-blue-200 mb-4">Comprehensive system with advanced filtering and automated updates.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Django</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">REST Framework</span>
+            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">PostgreSQL</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Testimonials -->
     <section class="mt-20 animate__animated animate__fadeInUp">
       <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Client Testimonials</h2>
@@ -44,6 +70,43 @@
       </div>
     </section>
 
+    <!-- Skills Showcase -->
+    <section class="mt-20 animate__animated animate__fadeInUp">
+      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Technical Expertise</h2>
+      <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl">
+        <div class="grid md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-xl font-semibold mb-4 text-emerald-400">Full-Stack Development</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Python</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Django</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Next.js</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">React</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Tailwind CSS</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-4 text-emerald-400">Backend & Databases</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">REST Framework</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">PostgreSQL</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">SQLite</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Supabase</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-4 text-emerald-400">Tools & Analytics</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Pandas</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">NumPy</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Selenium</span>
+              <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">Data Analysis</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Call to Action -->
     <section class="text-center mt-20 animate__animated animate__fadeInUp">
       <a href="{% url 'contact' %}" class="inline-block bg-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-600 transition-colors duration-300">Discuss Your Project</a>
@@ -51,3 +114,4 @@
   </div>
 </div>
 {% endblock content %}
+

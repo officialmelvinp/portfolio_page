@@ -40,6 +40,14 @@
                 View Repository <i class="bi bi-github ml-1"></i>
               </a>
             </li>
+            {% if project.live_link %}
+            <li>
+              <span class="font-semibold">Live Site:</span> 
+              <a href="{{ project.live_link }}" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors duration-300">
+                View Live <i class="bi bi-link-45deg ml-1"></i>
+              </a>
+            </li>
+            {% endif %}
           </ul>
         </div>
 
@@ -78,3 +86,4 @@
   </div>
 </div>
 {% endblock content %}
+

@@ -4,40 +4,43 @@
 {% block content %}
 <div class="container mx-auto px-4 py-16">
 
-  <!-- About Section -->
-  <section class="mb-16">
-    <h2 class="text-4xl font-extrabold text-blue-600 mb-6 animate__animated animate__fadeIn">About Me</h2>
-    <div class="grid md:grid-cols-3 gap-8 items-center animate__animated animate__fadeInUp">
-      <div class="md:col-span-1">
-        <img
-          src="{% static 'img/boye-4.jpg' %}"
-          alt="Ajayi Adeboye Samuel"
-          class="rounded-lg shadow-2xl w-full hover:scale-105 transition-all duration-500 ease-in-out"
-        />
-      </div>
-      <div class="md:col-span-2">
-        <h3 class="text-2xl font-semibold mb-4 text-gray-900">Ajayi Adeboye Samuel</h3>
-        <p class="text-lg mb-4 text-gray-700 animate__animated animate__fadeInUp animate__delay-1s">
-          Seasoned business professional with over a decade of experience in operations management and business optimization, now leveraging that expertise as a detail-oriented backend developer and data analyst. My journey from scaling small businesses to managing large operations has honed my problem-solving skills and business acumen, which I now apply to technology solutions.
-        </p>
-        <p class="text-lg mb-4 text-gray-700 animate__animated animate__fadeInUp animate__delay-2s">
-          With proven expertise in Python, Django, and RESTful API development, I bridge the gap between business needs and technological solutions. My unique blend of business insight and technical skills allows me to develop scalable systems, optimize data flow, and deliver actionable insights that drive informed decision-making and operational efficiency.
-        </p>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <p><strong>Birthday:</strong> 15 June 1989</p>
-            <p><strong>Phone:</strong> +234 703 349 5178</p>
-            <p><strong>City:</strong> Lagos, Nigeria</p>
-          </div>
-          <div>
-            <p><strong>Degree:</strong> B.Sc. Accounting</p>
-            <p><strong>Email:</strong> ajayiadeboye2002@gmail.com</p>
-            <p><strong>Freelance:</strong> Available</p>
-          </div>
+ <!-- About Section -->
+<section class="mb-16">
+  <h2 class="text-4xl font-extrabold text-blue-600 mb-6 animate__animated animate__fadeIn">About Me</h2>
+  <div class="grid md:grid-cols-3 gap-8 items-center animate__animated animate__fadeInUp">
+    <div class="md:col-span-1">
+      <img
+        src="{% static 'img/boye-4.jpg' %}"
+        alt="Ajayi Adeboye Samuel"
+        class="rounded-lg shadow-2xl w-full hover:scale-105 transition-all duration-500 ease-in-out"
+      />
+    </div>
+    <div class="md:col-span-2">
+      <h3 class="text-2xl font-semibold mb-4 text-gray-900">Ajayi Adeboye Samuel</h3>
+      <p class="text-lg mb-4 text-gray-700 animate__animated animate__fadeInUp animate__delay-1s">
+        Versatile full-stack developer and data analyst with over a decade of business management experience. My journey from scaling small businesses to developing comprehensive web applications has honed my problem-solving skills and business acumen, which I now apply to create innovative technology solutions.
+      </p>
+      <p class="text-lg mb-4 text-gray-700 animate__animated animate__fadeInUp animate__delay-2s">
+        With proven expertise in both backend (Python, Django, RESTful APIs) and frontend (Next.js, React) technologies, I bridge the gap between business needs and cutting-edge solutions. My unique blend of business insight and technical skills allows me to develop scalable, full-stack systems, optimize data flow, and deliver actionable insights that drive informed decision-making and operational efficiency.
+      </p>
+      <p class="text-lg mb-4 text-gray-700 animate__animated animate__fadeInUp animate__delay-3s">
+        Recently, I've expanded my skill set to include modern frontend development, successfully building and deploying a full-stack Next.js application. This experience has broadened my capabilities, allowing me to offer end-to-end solutions that combine robust backend systems with sleek, responsive user interfaces.
+      </p>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p><strong>Birthday:</strong> 15 June 1989</p>
+          <p><strong>Phone:</strong> +234 703 349 5178</p>
+          <p><strong>City:</strong> Lagos, Nigeria</p>
+        </div>
+        <div>
+          <p><strong>Degree:</strong> B.Sc. Accounting</p>
+          <p><strong>Email:</strong> ajayiadeboye2002@gmail.com</p>
+          <p><strong>Freelance:</strong> Available</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Music Prowess Section -->
   <section class="mb-16 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg p-8 shadow-xl">
@@ -105,28 +108,38 @@
   </section>
 
   <!-- Projects Section -->
-  <section class="mb-16">
-    <h2 class="text-4xl font-extrabold text-blue-600 mb-6 animate__animated animate__fadeIn">Notable Projects</h2>
-    <div class="grid md:grid-cols-2 gap-6">
-      {% for project in projects %}
-        <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">
-          <h3 class="text-xl font-semibold mb-4 text-blue-600">{{ project.title }}</h3>
-          <ul class="list-disc pl-5 space-y-2 text-gray-700">
-            {% for detail in project.details %}
-              <li>{{ detail }}</li>
+<section class="mb-16">
+  <h2 class="text-4xl font-extrabold text-blue-600 mb-6 animate__animated animate__fadeIn">Notable Projects</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    {% for project in projects %}
+      <div class="bg-white shadow-lg rounded-lg p-6 hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">
+        <h3 class="text-xl font-semibold mb-4 text-blue-600">{{ project.title }}</h3>
+        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+          {% for detail in project.details %}
+            <li>{{ detail }}</li>
+          {% endfor %}
+        </ul>
+        <p class="mt-2 text-sm text-gray-600">Technologies: 
+          <span class="font-medium text-blue-600">
+            {% for tech in project.technologies %}
+              {{ tech }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
-          </ul>
-          <p class="mt-2 text-sm text-gray-600">Technologies: 
-            <span class="font-medium text-blue-600">
-              {% for tech in project.technologies %}
-                {{ tech }}{% if not forloop.last %}, {% endif %}
-              {% endfor %}
-            </span>
-          </p>
-        </div>
-      {% endfor %}
-    </div>
-  </section>
+          </span>
+        </p>
+        {% if project.github_url %}
+          <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 text-blue-600 hover:text-blue-800 transition-colors duration-300">
+            <i class="bi bi-github mr-2"></i>View on GitHub
+          </a>
+        {% endif %}
+        {% if project.live_link %}
+          <a href="{{ project.live_link }}" target="_blank" rel="noopener noreferrer" class="inline-block mt-4 ml-4 text-green-600 hover:text-green-800 transition-colors duration-300">
+            <i class="bi bi-link-45deg mr-2"></i>View Live Site
+          </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
 
   <!-- Education & Certifications Section -->
   <section class="mb-16">

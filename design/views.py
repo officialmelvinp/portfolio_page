@@ -29,10 +29,9 @@ def home_page_view(request):
     return render(request, 'main/index.html', context)
 
 
-
 def about_page_view(request):
     context = {
-        'other_skills': ['PostgreSQL', 'SQLite', 'Pandas', 'NumPy', 'Selenium', 'GitHub', 'Data Analysis', 'API Integration', 'Cloud Deployment (Render)', 'Business Optimization', 'Financial Analytics'],
+        'other_skills': ['PostgreSQL', 'SQLite', 'Pandas', 'NumPy', 'Selenium', 'GitHub', 'Data Analysis', 'API Integration', 'Cloud Deployment (Render)', 'Business Optimization', 'Financial Analytics', 'Next.js', 'React', 'Tailwind CSS', 'Supabase', 'Vercel'],
         'work_experience': [
             {
                 'title': 'Backend Development Intern',
@@ -66,72 +65,124 @@ def about_page_view(request):
         ],
         'projects': [
             {
+                'title': 'Dolapo Udekwe Makeup Artist Website',
+                'short_description': 'Full-stack Next.js website for a professional makeup artist',
+                'technologies': ['Next.js', 'React', 'Tailwind CSS', 'Supabase', 'Vercel'],
+                'github_url': 'https://github.com/officialmelvinp/makeup_website',
+                'live_link': 'https://dolapoudekwe.co.uk',
+                'details': [
+                    'Developed a responsive full-stack website using Next.js and Tailwind CSS',
+                    'Implemented an online booking system with real-time availability',
+                    'Integrated with Supabase for backend functionality and data management',
+                    'Utilized server-side rendering for improved SEO performance',
+                    'Deployed and managed the site using Vercel for optimal performance'
+                ]
+            },
+            {
                 'title': 'Library API',
                 'short_description': 'Comprehensive library management system',
                 'technologies': ['Python', 'Django', 'PostgreSQL', 'Django REST Framework'],
+                'github_url': 'https://github.com/officialmelvinp/library-api',
+                'details': [
+                    'Developed a robust API for managing library resources and user interactions',
+                    'Implemented advanced filtering and search capabilities',
+                    'Integrated with PostgreSQL for efficient data management',
+                    'Utilized Django signals for automated status updates and notifications'
+                ]
             },
             {
                 'title': 'IMF Web Scraping',
                 'short_description': 'Data analysis of IMF economic indicators',
                 'technologies': ['Python', 'BeautifulSoup', 'Pandas', 'NumPy'],
+                'github_url': 'https://github.com/officialmelvinp/group5-da-dev-db',
+                'details': [
+                    'Automated data extraction from IMF website using BeautifulSoup',
+                    'Performed comprehensive analysis of economic indicators using Pandas and NumPy',
+                    'Generated visualizations to highlight trends and patterns in global economic data',
+                    'Produced actionable insights for economic forecasting and policy analysis'
+                ]
             },
             {
                 'title': 'Healthcare Appointment',
                 'short_description': 'Appointment booking system for healthcare',
                 'technologies': ['Python', 'Django', 'PostgreSQL', 'Django REST Framework'],
+                'github_url': 'https://github.com/officialmelvinp/healthcare_app',
+                'details': [
+                    'Built a secure and efficient appointment booking system for healthcare providers',
+                    'Implemented real-time scheduling and management features',
+                    'Integrated with healthcare provider calendars for seamless coordination',
+                    'Developed automated reminders and notifications for patients and staff'
+                ]
             },
             {
                 'title': 'Financial Analytics for Renergy Hub',
                 'short_description': 'Real-time financial analytics system',
                 'technologies': ['Python', 'Django', 'Pandas', 'NumPy', 'Financial APIs'],
+                'github_url': 'https://github.com/InternPulse/renergy-hub-django-backend',
+                'live_link': 'https://www.renergyhub.com.ng',
+                'details': [
+                    'Developed a real-time financial analytics system for renewable energy projects',
+                    'Created custom dashboards for different stakeholders to visualize key metrics',
+                    'Implemented predictive analytics for project outcomes and financial forecasting',
+                    'Integrated with multiple data sources and financial APIs for comprehensive analysis'
+                ]
             },
             {
                 'title': 'Product Management',
                 'short_description': 'Efficient product management system',
                 'technologies': ['Python', 'Django', 'SQLite'],
+                'github_url': 'https://github.com/officialmelvinp/product_management',
+                'details': [
+                    'Designed and implemented a product management system for e-commerce platforms',
+                    'Developed features for inventory tracking, order processing, and supplier management',
+                    'Implemented automated reordering system based on inventory levels and sales data',
+                    'Created analytics and reporting tools for product performance evaluation'
+                ]
             }
         ]
     }
     return render(request, 'main/about.html', context)
 
 
-
-
-
-
 def contact_page_view(request):
-    if request.method == 'GET':
-        return render(request, "main/contact.html")
-    
-    elif request.method == 'POST':
-        data = json.loads(request.body)
-        name = data.get('name')
-        email = data.get('email')
-        message = data.get('message')
-
-        # Save to database
-        ContactSubmission.objects.create(name=name, email=email, message=message)
-
-        # Send email
+    if request.method == 'POST':
         try:
+            # Parse the JSON data from the request body
+            data = json.loads(request.body)
+            name = data.get('name')
+            email = data.get('email')
+            message = data.get('message')
+
+            # Prepare email content
+            subject = f'Contact Form Message from {name}'
+            email_message = f"""
+            Name: {name}
+            Email: {email}
+            Message:
+            {message}
+            """
+            
+            # Send email using CONTACT_EMAIL instead of ADMIN_EMAIL
             send_mail(
-                subject=f"New contact form submission from {name}",
-                message=f"Name: {name}\nEmail: {email}\nMessage: {message}",
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[settings.ADMIN_EMAIL],
+                subject=subject,
+                message=email_message,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[settings.CONTACT_EMAIL],  # Use CONTACT_EMAIL here
                 fail_silently=False,
             )
-            email_sent = True
+
+            return JsonResponse({'status': 'success', 'message': 'Email sent successfully!'})
+
         except Exception as e:
-            email_sent = False
+            import traceback
             print(f"Error sending email: {str(e)}")
+            print(f"Traceback: {traceback.format_exc()}")
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e) if settings.DEBUG else 'Failed to send message. Please try again.'
+            }, status=500)
 
-        return JsonResponse({
-            "status": "success" if email_sent else "error",
-            "message": "Form submitted successfully" if email_sent else "Error sending email"
-        })
-
-    return JsonResponse({"status": "error", "message": "Invalid request method"})
+    return render(request, 'main/contact.html')
 
 def contact_success_view(request):
     return render(request, "main/contact_success.html")
@@ -171,7 +222,8 @@ def portfolio_page_view(request):
             'short_description': 'Real-time financial analytics system',
             'image': 'img/renergy.jpg',
             'category': 'Data Analysis',
-            'github_url': 'https://github.com/InternPulse/renergy-hub-django-backend'
+            'github_url': 'https://github.com/InternPulse/renergy-hub-django-backend',
+            'live_link': 'https://www.renergyhub.com.ng'
         },
         {
             'id': 'product-management',
@@ -180,9 +232,52 @@ def portfolio_page_view(request):
             'image': 'img/product.jpg',
             'category': 'Management',
             'github_url': 'https://github.com/officialmelvinp/product_management'
+        },
+        {
+            'id': 'dolapo-udekwe-makeup',
+            'title': 'Dolapo Udekwe Makeup Artist Website',
+            'short_description': 'Full-stack Next.js website for a professional makeup artist',
+            'image': 'img/dolapo.jpeg',
+            'category': 'Full-Stack Development',
+            'github_url': 'https://github.com/officialmelvinp/makeup_website',
+            'live_link': 'https://dolapoudekwe.co.uk',
+        },
+    ]
+    services = [
+        {
+            'icon': 'bi bi-code-slash',
+            'title': 'Backend Development',
+            'description': 'Scalable and efficient server-side solutions.',
+            'tags': ['Python', 'Django', 'API Development']
+        },
+        {
+            'icon': 'bi bi-graph-up',
+            'title': 'Data Analysis',
+            'description': 'Insightful data processing and visualization.',
+            'tags': ['Python', 'Pandas', 'Data Visualization']
+        },
+        {
+            'icon': 'bi bi-gear',
+            'title': 'Business Process Optimization',
+            'description': 'Streamlining operations for maximum efficiency.',
+            'tags': ['Process Mapping', 'Automation', 'KPI Tracking']
         }
     ]
-    return render(request, "main/portfolio.html", {'projects': projects})
+    
+    recommendation = {
+            'name': 'Djinee john',
+            'text': "I highly recommend Ajayi Adeboye, who was a backend engineer intern during our 5th cohort at InternPulse. During his time with us, he displayed remarkable technical skills and a strong work ethic. Adeboye contributed significantly to Renergy Hub, a cleantech platform, showing his ability to apply his backend engineering expertise in real-world scenarios. He was always proactive in solving complex problems, and his collaboration with the team was seamless. Adeboye consistently went above and beyond, and his leadership in his role was evident as he contributed to the platform's development and performance.",
+            'author': 'Founder and Chief Mentor',
+            'position': 'InternPulse',
+    }
+    
+    context = {
+        'projects': projects,
+        'services': services,
+        'recommendation': recommendation
+        
+    }
+    return render(request, "main/portfolio.html", context)
 
 def portfolio_detail_view(request, project_id):
     projects = {
@@ -203,6 +298,28 @@ def portfolio_detail_view(request, project_id):
                 'img/library.jpg',
                
             ]
+        },
+        
+         'dolapo-udekwe-makeup': {
+            'title': 'Dolapo Udekwe Makeup Artist Website',
+            'description': 'A full-stack Next.js website for a professional makeup artist, featuring a responsive design, online booking system, and portfolio showcase.',
+            'category': 'Full-Stack Development',
+            'project_type': 'Web Development',
+            'project_date': 'March 2025',
+            'github_url': 'https://github.com/officialmelvinp/makeup_website',
+            'live_link': 'https://dolapoudekwe.co.uk',
+            'details': [
+                'Responsive design using Tailwind CSS',
+                'Server-side rendering with Next.js for improved SEO',
+                'Integration with Supabase for backend functionality',
+                'Online booking system with real-time availability',
+                'Dynamic portfolio showcase with image optimization',
+                'Admin dashboard for content management'
+            ],
+            'images': [
+                'img/dolapo.jpeg',
+            ],
+            'technologies': ['Next.js', 'React', 'Tailwind CSS', 'Supabase', 'Vercel']
         },
         'imf-analysis': {
             'title': 'IMF Web Scraping',
@@ -247,6 +364,7 @@ def portfolio_detail_view(request, project_id):
             'project_type': 'Financial Analytics',
             'project_date': 'December 2024',
             'github_url': 'https://github.com/InternPulse/renergy-hub-django-backend',
+            'live_link': 'https://www.renergyhub.com.ng',
             'details': [
                 'Real-time data processing of financial metrics',
                 'Custom dashboards for different stakeholders',
@@ -435,7 +553,8 @@ def services_page_view(request):
         {
             'content': 'The financial analysis tools developed by Ajayi have revolutionized our decision-making process. We now have real-time insights that have improved our profitability by 25%.',
             'author': 'ifeka odira hilary'
-        }
+        },
+        
     ]
 
     context = {
