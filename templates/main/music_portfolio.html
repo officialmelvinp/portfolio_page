@@ -1,36 +1,80 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}{{ name }}'s Music Portfolio - Ajayi Adeboye Samuel{% endblock %}
+{% block meta_description %}Explore the music portfolio of Melvin-P (Ajayi Adeboye Samuel), featuring soulful melodies, inspiring tracks, and musical achievements.{% endblock %}
+{% block meta_keywords %}music portfolio, Melvin-P, Ajayi Adeboye Samuel, musical artist, songwriter, music production, Nigerian music, soulful melodies{% endblock %}
+
+{% block og_title %}{{ name }}'s Music Portfolio - Ajayi Adeboye Samuel{% endblock %}
+{% block og_description %}Explore the music portfolio of Melvin-P (Ajayi Adeboye Samuel), featuring soulful melodies, inspiring tracks, and musical achievements.{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static music_prowess_data.image %}{% endblock %} {# Use a relevant music image #}
+{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twitter_title %}{{ name }}'s Music Portfolio - Ajayi Adeboye Samuel{% endblock %}
+{% block twitter_description %}Explore the music portfolio of Melvin-P (Ajayi Adeboye Samuel), featuring soulful melodies, inspiring tracks, and musical achievements.{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static music_prowess_data.image %}{% endblock %}
+
+{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}
+
 {% block content %}
-<div class="min-h-screen bg-gradient-to-b from-purple-900 to-indigo-900 text-white py-8">
+<div class="min-h-screen bg-gradient-to-br from-gray-950 to-zinc-900 text-white py-8">
     <div class="container mx-auto px-4">
         <header class="text-center mb-12">
-            <h1 class="text-4xl font-bold mb-4">{{ name }}'s Music Portfolio</h1>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">{{ name }}'s Music Portfolio</h1>
+            <p class="text-lg md:text-xl text-zinc-300">Dive into the world of soulful melodies and inspiring tracks.</p>
         </header>
 
-        <section class="mb-16">
-            <div class="bg-white/10 backdrop-blur-md rounded-lg p-8 shadow-lg flex flex-col lg:flex-row items-start">
-                <div class="lg:w-1/3 flex justify-center lg:sticky lg:top-8">
-                    <img src="{% static profile_image %}" alt="{{ name }}" class="w-64 h-64 rounded-full object-cover mb-6 lg:mb-0">
+        <!-- Music Prowess Section (Moved from portfolio.html) -->
+        <section class="mb-12 md:mb-20 bg-white/5 backdrop-blur-md rounded-xl p-8 shadow-xl border border-zinc-700">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+                Musical Journey
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <p class="text-lg mb-4 text-zinc-300">{{ music_prowess_data.description_1 }}</p>
+                    <p class="text-lg mb-4 text-zinc-300">{{ music_prowess_data.description_2 }}</p>
+                    <ul class="list-disc list-inside mb-4 text-zinc-300">
+                        {% for skill in music_prowess_data.skills %}
+                            <li>{{ skill }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <div class="lg:w-2/3 lg:pl-8">
-                    <h2 class="text-2xl font-semibold mb-4">About Me</h2>
-                    <p class="text-lg leading-relaxed">{{ bio }}</p>
+                <div class="relative">
+                    <img
+                        src="{% static music_prowess_data.image %}"
+                        alt="Ajayi Adeboye Samuel Performing Music" {# Added alt text #}
+                        class="rounded-lg shadow-2xl w-full hover:scale-105 transition-all duration-500 ease-in-out"
+                    />
+                    <div class="absolute bottom-4 right-4 bg-black bg-opacity-50 text-white p-2 rounded">
+                        <a href="#music-collection" class="hover:text-cyan-300 transition-colors duration-300">Explore My Tracks</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section>
-            <h2 class="text-3xl font-bold text-center mb-8">My Music Collection</h2>
+        <section class="mb-16">
+            <div class="bg-white/10 backdrop-blur-md rounded-lg p-8 shadow-lg flex flex-col lg:flex-row items-start border border-zinc-700">
+                <div class="lg:w-1/3 flex justify-center lg:sticky lg:top-8">
+                    <img src="{% static profile_image %}" alt="{{ name }}'s Profile" class="w-64 h-64 rounded-full object-cover mb-6 lg:mb-0 shadow-xl"> {# Added alt text #}
+                </div>
+                <div class="lg:w-2/3 lg:pl-8">
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-4 text-teal-300">About Melvin-P</h2>
+                    <p class="text-lg leading-relaxed text-zinc-300 whitespace-pre-line">{{ bio }}</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="music-collection">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">My Music Collection</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {% for song in songs %}
-                <div class="bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                    <img src="{% static song.image %}" alt="{{ song.title }}" class="w-full h-48 object-cover">
+                <div class="bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-zinc-700">
+                    <img src="{% static song.image %}" alt="{{ song.title }} album cover" class="w-full h-48 object-cover"> {# Added alt text #}
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">{{ song.title }}</h3>
-                        <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-semibold mb-2 text-teal-300">{{ song.title }}</h3>
+                        <div class="flex justify-between items-center mt-4">
                             {% if song.link %}
-                            <a href="{{ song.link }}" target="_blank" rel="noopener noreferrer" class="flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-300">
+                            <a href="{{ song.link }}" target="_blank" rel="noopener noreferrer" class="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
                                 </svg>
@@ -55,4 +99,3 @@
     </div>
 </div>
 {% endblock %}
-

@@ -1,174 +1,296 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}Ajayi Adeboye Samuel - Full-Stack Developer & Artist{% endblock %}
+{% block meta_description %}Ajayi Adeboye Samuel is a versatile full-stack developer, data analyst, business analyst, and musical artist. Explore his tech and music portfolios.{% endblock %}
+{% block meta_keywords %}full-stack developer, data analyst, business analyst, musical artist, Next.js, React, Django, Python, web development, music production, portfolio, Ajayi Adeboye Samuel{% endblock %}
+
+{% block og_title %}Ajayi Adeboye Samuel - Full-Stack Developer & Artist{% endblock %}
+{% block og_description %}Ajayi Adeboye Samuel is a versatile full-stack developer, data analyst, business analyst, and musical artist. Explore his tech and music portfolios.{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/frontal.jpg' %}{% endblock %} {# Use a relevant image for the home page #}
+{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twitter_title %}Ajayi Adeboye Samuel - Full-Stack Developer & Artist{% endblock %}
+{% block twitter_description %}Ajayi Adeboye Samuel is a versatile full-stack developer, data analyst, business analyst, and musical artist. Explore his tech and music portfolios.{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/frontal.jpg' %}{% endblock %}
+
+{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}
+
 {% block content %}
-<div class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white overflow-hidden">
-  <!-- Enhanced Hero Section -->
-  <section id="hero" class="py-20 md:py-32 relative">
-    <div class="container mx-auto px-4 relative z-10">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <!-- Text Content (Left) -->
-        <div class="space-y-8">
-          <h1 class="text-4xl md:text-5xl font-bold mb-6 opacity-0 transform translate-y-8 transition-all duration-1000 ease-out bg-gradient-to-r from-yellow-400 via-amber-500 to-yellow-600 bg-clip-text text-transparent" id="roles">
-            Full-Stack Developer | Data Analyst | Business Analyst | Musical Artist
-          </h1>
-          <p class="text-xl text-gray-300 opacity-0 transform translate-y-8 transition-all duration-1000 ease-out delay-300" id="description">
-            Crafting efficient APIs and responsive user interfaces, unlocking insights from data, driving business strategies, and producing music that resonates with the soul. Experienced in modern web technologies including Next.js and React.
-          </p>
-          <div class="flex space-x-4 opacity-0 transform translate-y-8 transition-all duration-1000 ease-out delay-500" id="cta-buttons">
-            <a href="{% url 'about' %}" class="btn-get-started bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-blue-700 transition-all duration-300 inline-block transform hover:scale-105 hover:shadow-lg">
-              About Me
-            </a>
-            <a href="{% url 'portfolio' %}" class="btn-portfolio bg-purple-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-purple-700 transition-all duration-300 inline-block transform hover:scale-105 hover:shadow-lg">
-              View Portfolio
-            </a>
+<div class="min-h-screen bg-gradient-to-br from-gray-950 to-zinc-900 text-white overflow-hidden">
+<!-- Enhanced Hero Section -->
+<section id="hero" class="py-20 md:py-32 relative">
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <!-- Text Content (Left) -->
+      <div class="space-y-8">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 opacity-0 transform translate-y-8 transition-all duration-1000 ease-out bg-gradient-to-r from-teal-400 via-cyan-400 to-teal-500 bg-clip-text text-transparent" id="roles">
+          Full-Stack Developer | Backend Engineer | Business Analyst | Musical Artist
+        </h1>
+       <p class="text-xl text-zinc-300 opacity-0 transform translate-y-8 transition-all duration-1000 ease-out delay-300" id="description">
+  Crafting efficient APIs and responsive user interfaces, shaping business strategies, and creating music that resonates with the soul. Experienced in modern web technologies including Next.js and React.
+</p>
+        {# Removed the CTA buttons from here #}
+      </div>
+      <!-- Enhanced Image (Right) -->
+      <div class="relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+        <img
+          src="{% static 'img/frontal.jpg' %}"
+          alt="Ajayi Adeboye Samuel - Full-Stack Developer and Artist" {# Added alt text #}
+          class="relative rounded-lg shadow-2xl w-full max-w-md mx-auto opacity-0 transform scale-95 transition-all duration-1000 ease-out"
+          id="profile-image"
+        >
+      </div>
+    </div>
+  </div>
+  <!-- Enhanced Animated Background Elements -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+    <div class="absolute w-96 h-96 bg-teal-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob"></div>
+    <div class="absolute w-96 h-96 bg-cyan-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-2000"></div>
+    <div class="absolute w-96 h-96 bg-emerald-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-4000"></div>
+  </div>
+</section>
+
+<!-- About Me Section (NEW) -->
+<section class="py-20 bg-gradient-to-r from-gray-950 to-zinc-900 text-white relative overflow-hidden">
+  <div class="container mx-auto px-4 relative z-10">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center animate-text bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+      About Me
+    </h2>
+    <div class="grid md:grid-cols-3 gap-8 items-center bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl border border-zinc-700">
+      <div class="md:col-span-1">
+        <img
+          src="{% static 'img/boye-4.jpg' %}"
+          alt="Ajayi Adeboye Samuel - Professional Portrait" {# Added alt text #}
+          class="rounded-lg shadow-2xl w-full hover:scale-105 transition-all duration-500 ease-in-out"
+        />
+      </div>
+      <div class="md:col-span-2">
+        <h3 class="text-2xl font-semibold mb-4 text-teal-300">{{ personal_info.name }}</h3>
+        {% for paragraph in about_me_content %}
+          <p class="text-lg mb-4 text-zinc-300">{{ paragraph }}</p>
+        {% endfor %}
+        <div class="grid grid-cols-2 gap-4 text-zinc-300">
+          <div>
+            <p><strong>Birthday:</strong> {{ personal_info.birthday }}</p>
+            <p><strong>Phone:</strong> {{ personal_info.contact.phone }}</p>
+            <p><strong>City:</strong> {{ personal_info.contact.location }}</p>
+          </div>
+          <div>
+            <p><strong>Degree:</strong> {{ personal_info.degree }}</p>
+            <p><strong>Email:</strong> {{ personal_info.contact.email }}</p>
+            <p><strong>Freelance:</strong> {{ personal_info.freelance_status }}</p>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- Enhanced Image (Right) -->
-        <div class="relative">
-          <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-          <img 
-            src="{% static 'img/frontal.jpg' %}" 
-            alt="Ajayi Adeboye" 
-            class="relative rounded-lg shadow-2xl w-full max-w-md mx-auto opacity-0 transform scale-95 transition-all duration-1000 ease-out"
-            id="profile-image"
-          >
+<!-- Key Skills Section (NEW) -->
+<section class="py-20 bg-gradient-to-r from-gray-950 to-zinc-900 text-white relative overflow-hidden">
+  <div class="container mx-auto px-4 relative z-10">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center animate-text bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+      Key Skills
+    </h2>
+    <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl border border-zinc-700">
+      <div class="space-y-6">
+        {% for skill_group in technical_skills %}
+        <div>
+          <h3 class="text-xl md:text-2xl font-semibold mb-3 text-cyan-400">{{ skill_group.category }}</h3>
+          <div class="flex flex-wrap gap-2">
+            {% for skill in skill_group.skills %}
+            <span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full text-xs md:text-sm">{{ skill }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Projects Section (NEW) -->
+<section class="py-20 bg-gradient-to-r from-gray-950 to-zinc-900 text-white relative overflow-hidden">
+  <div class="container mx-auto px-4 relative z-10">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center animate-text bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+      Featured Projects
+    </h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      {% for project in key_projects %}
+      <div class="bg-white/5 backdrop-blur-md rounded-xl p-0 shadow-2xl transform hover:scale-[1.02] transition-all duration-300 animate__animated animate__fadeInUp">
+        <img src="{% static project.images.0 %}" alt="{{ project.title }}" class="w-full h-48 object-cover rounded-t-xl"> {# Added alt text #}
+        <div class="p-6">
+          <h3 class="text-xl md:text-2xl font-bold text-teal-300 mb-2">{{ project.title }}</h3>
+          <p class="text-zinc-300 mb-4 text-sm md:text-base">{{ project.short_description }}</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            {% for tech in project.technologies|slice:":3" %}
+            <span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full text-xs md:text-sm">{{ tech }}</span>
+            {% endfor %}
+            {% if project.technologies|length > 3 %}
+            <span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full text-xs md:text-sm">+{{ project.technologies|length|add:"-3" }} more</span>
+            {% endif %}
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="bg-teal-500/20 text-teal-300 px-2 py-1 rounded-full text-xs md:text-sm">{{ project.category }}</span>
+            <div class="flex space-x-3">
+              {% if project.github_url %}
+              <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="text-teal-400 hover:text-teal-300 transition-colors duration-300">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+              {% endif %}
+              {% if project.live_link %}
+              <a href="{{ project.live_link }}" target="_blank" rel="noopener noreferrer" class="text-teal-400 hover:text-teal-300 transition-colors duration-300">
+                <i class="bi bi-link-45deg text-xl"></i>
+              </a>
+              {% endif %}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Enhanced Animated Background Elements -->
-    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-      <div class="absolute w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob"></div>
-      <div class="absolute w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-2000"></div>
-      <div class="absolute w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-blob animation-delay-4000"></div>
-    </div>
-  </section>
-
-  <!-- Music Portfolio Section -->
-  <section class="py-20 bg-gradient-to-r from-gray-900 to-blue-900 text-white relative overflow-hidden">
-    <div class="container mx-auto px-4 relative z-10">
-      <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center animate-text bg-gradient-to-r from-blue-400 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
-        Music Portfolio
-      </h2>
-      <p class="text-center text-xl text-gray-300 mb-8">
-        Explore my collection of soulful and inspiring tracks. Click below to dive into my music portfolio.
-      </p>
-      <div class="text-center">
-        <a href="{% url 'music_portfolio' %}" class="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 px-10 rounded-lg text-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 relative overflow-hidden group">
-          <span class="relative z-10">Explore Music Portfolio</span>
-          <span class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
-        </a>
-      </div>
-    </div>
-
-    <!-- Animated Music Notes -->
-    <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-      {% for position in positions %}
-        <div class="absolute w-8 h-8 bg-white/5 rounded-full animate-float" style="left: {{ position.left }}%; top: {{ position.top }}%; animation-delay: {{ position.delay }}s;"></div>
       {% endfor %}
     </div>
-  </section>
+    <div class="text-center mt-12">
+      <a href="{% url 'portfolio' %}" class="inline-block bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold py-4 px-10 rounded-lg text-xl hover:from-teal-700 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 relative overflow-hidden group">
+        <span class="relative z-10">View All Tech Projects</span>
+        <span class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
+      </a>
+    </div>
+  </div>
+</section>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Animate elements on load
-      setTimeout(() => {
-        // Animation for 'name' removed as the element no longer exists
-        document.getElementById('roles').classList.remove('opacity-0', 'transform', 'translate-y-8');
-        document.getElementById('description').classList.remove('opacity-0', 'transform', 'translate-y-8');
-        document.getElementById('cta-buttons').classList.remove('opacity-0', 'transform', 'translate-y-8');
-        document.getElementById('profile-image').classList.remove('opacity-0', 'transform', 'scale-95');
-      }, 100);
+<!-- Tech Portfolio Section (Existing, now acts as a final CTA) -->
+<section class="py-20 bg-gradient-to-r from-gray-950 to-zinc-900 text-white relative overflow-hidden">
+  <div class="container mx-auto px-4 relative z-10">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center animate-text bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+      Tech Portfolio
+    </h2>
+    <p class="text-center text-xl text-zinc-300 mb-8">
+      Explore my professional projects and technical expertise. Click below to dive into my development portfolio.
+    </p>
+    <div class="text-center">
+      <a href="{% url 'portfolio' %}" class="inline-block bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold py-4 px-10 rounded-lg text-xl hover:from-teal-700 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 relative overflow-hidden group">
+        <span class="relative z-10">Explore Tech Portfolio</span>
+        <span class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
+      </a>
+    </div>
+  </div>
+  <!-- Animated Tech Elements (e.g., code snippets, gears) -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+    {# You can add more dynamic elements here if desired, similar to music notes #}
+    <div class="absolute w-12 h-12 bg-white/5 rounded-lg animate-float" style="left: 10%; top: 20%; animation-delay: 0s; transform: rotate(15deg);"></div>
+    <div class="absolute w-10 h-10 bg-white/5 rounded-full animate-float" style="left: 80%; top: 50%; animation-delay: 2s; transform: rotate(-30deg);"></div>
+    <div class="absolute w-14 h-14 bg-white/5 rounded-xl animate-float" style="left: 30%; top: 70%; animation-delay: 4s; transform: rotate(45deg);"></div>
+  </div>
+</section>
 
-      // Intersection Observer for animating sections on scroll
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in-up');
-          }
-        });
-      }, { threshold: 0.1 });
-
-      document.querySelectorAll('section').forEach(section => {
-        observer.observe(section);
+<!-- Music Portfolio Section -->
+<section class="py-20 bg-gradient-to-r from-gray-950 to-zinc-900 text-white relative overflow-hidden">
+  <div class="container mx-auto px-4 relative z-10">
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-12 text-center animate-text bg-gradient-to-r from-teal-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+      Music Portfolio
+    </h2>
+    <p class="text-center text-xl text-zinc-300 mb-8">
+      Explore my collection of soulful and inspiring tracks. Click below to dive into my music portfolio.
+    </p>
+    <div class="text-center">
+      <a href="{% url 'music_portfolio' %}" class="inline-block bg-gradient-to-r from-teal-600 to-cyan-600 text-white font-bold py-4 px-10 rounded-lg text-xl hover:from-teal-700 hover:to-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 relative overflow-hidden group">
+        <span class="relative z-10">Explore Music Portfolio</span>
+        <span class="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
+      </a>
+    </div>
+  </div>
+  <!-- Animated Music Notes -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+    {% for position in positions %}
+      <div class="absolute w-8 h-8 bg-white/5 rounded-full animate-float" style="left: {{ position.left }}%; top: {{ position.top }}%; animation-delay: {{ position.delay }}s;"></div>
+    {% endfor %}
+  </div>
+</section>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Animate elements on load
+    setTimeout(() => {
+      document.getElementById('roles').classList.remove('opacity-0', 'transform', 'translate-y-8');
+      document.getElementById('description').classList.remove('opacity-0', 'transform', 'translate-y-8');
+      document.getElementById('profile-image').classList.remove('opacity-0', 'transform', 'scale-95');
+    }, 100);
+    // Intersection Observer for animating sections on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in-up');
+        }
       });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
     });
-  </script>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-
-    body {
-      font-family: 'Inter', sans-serif;
+  });
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  .animate-text {
+    animation: text-gradient 5s ease infinite;
+  }
+  @keyframes text-gradient {
+    0%, 100% {
+      background-size: 200% 200%;
+      background-position: left center;
     }
-
-    .animate-text {
-      animation: text-gradient 5s ease infinite;
+    50% {
+      background-size: 200% 200%;
+      background-position: right center;
     }
-
-    @keyframes text-gradient {
-      0%, 100% {
-        background-size: 200% 200%;
-        background-position: left center;
-      }
-      50% {
-        background-size: 200% 200%;
-        background-position: right center;
-      }
+  }
+  .animate-fade-in-up {
+    animation: fade-in-up 1s ease-out forwards;
+  }
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
     }
-
-    .animate-fade-in-up {
-      animation: fade-in-up 1s ease-out forwards;
+    100% {
+      opacity: 1;
+      transform: translateY(0);
     }
-
-    @keyframes fade-in-up {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+  }
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  @keyframes blob {
+    0% {
+      transform: translate(0, 0) scale(1);
     }
-
-    .animate-blob {
-      animation: blob 7s infinite;
+    33% {
+      transform: translate(-50px, -50px) scale(1.1);
     }
-
-    @keyframes blob {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-      33% {
-        transform: translate(-50px, -50px) scale(1.1);
-      }
-      66% {
-        transform: translate(50px, 50px) scale(1.1);
-      }
-      100% {
-        transform: translate(0, 0) scale(1);
-      }
+    66% {
+      transform: translate(50px, 50px) scale(1.1);
     }
-
-    .animate-float {
-      animation: float 4s ease-in-out infinite;
+    100% {
+      transform: translate(0, 0) scale(1);
     }
-
-    @keyframes float {
-      0% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-      100% {
-        transform: translateY(0);
-      }
+  }
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0% {
+      transform: translateY(0);
     }
-  </style>
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+</style>
 </div>
 {% endblock content %}
-

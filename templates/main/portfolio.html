@@ -1,161 +1,350 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}Ajayi Adeboye Samuel - Tech Portfolio{% endblock %}
+{% block meta_description %}Explore the professional portfolio of Ajayi Adeboye Samuel, showcasing expertise in Django, Node.js/Express, Next.js, API architecture, MongoDB/PostgreSQL, e-commerce, and various full-stack projects.{% endblock %}
+{% block meta_keywords %}tech portfolio, Django projects, Next.js projects, API development, e-commerce solutions, full-stack developer, Node.js/Express, Python, React, MongoDB/PostgreSQL, web development, Ajayi Adeboye Samuel{% endblock %}
+
+{% block og_title %}Ajayi Adeboye Samuel - Tech Portfolio{% endblock %}
+{% block og_description %}Explore the professional portfolio of Ajayi Adeboye Samuel, showcasing expertise in Django, MongoDB/PostgreSQL, Node.js/Express, Next.js, API architecture, e-commerce, and various full-stack projects.{% endblock %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/project-placeholder.jpg' %}{% endblock %} {# Or a more general portfolio image #}
+{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twitter_title %}Ajayi Adeboye Samuel - Tech Portfolio{% endblock %}
+{% block twitter_description %}Explore the professional portfolio of Ajayi Adeboye Samuel, showcasing expertise in Django, MongoDB/PostgreSQL, Node.js/Express, Next.js, API architecture, e-commerce, and various full-stack projects.{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/project-placeholder.jpg' %}{% endblock %}
+
+{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}
+
 {% block content %}
-<div class="bg-gradient-to-br from-gray-900 to-blue-900 min-h-screen text-white py-20">
-  <div class="container mx-auto px-4">
-    <!-- Header -->
-    <header class="text-center mb-16 animate__animated animate__fadeIn">
-      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Ajayi Adeboye Samuel</h1>
-      <p class="text-xl md:text-2xl text-blue-200">Full-Stack Developer | Data Analyst | Business Innovator</p>
-    </header>
+<div class="bg-gradient-to-br from-gray-950 to-zinc-900 min-h-screen text-white py-12 md:py-20">
+<div class="container mx-auto px-4 max-w-6xl">
+  <!-- Header -->
+  <header class="text-center mb-12 md:mb-16 animate__animated animate__fadeIn">
+    <h1 class="text-4xl md:text-6xl font-extrabold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+      {{ personal_info.name }}
+    </h1>
+    <h1>{{ personal_info.title }}</h1>
+<p class="mt-3 text-base md:text-lg text-zinc-400 max-w-3xl mx-auto">
+  {{ personal_info.tagline }}
+</p>
+    <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-base md:text-lg text-zinc-300">
+      <a href="mailto:{{ personal_info.contact.email }}" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
+        <i class="fas fa-envelope"></i> {{ personal_info.contact.email }}
+      </a>
+      <span class="hidden sm:inline">|</span>
+      <a href="tel:{{ personal_info.contact.phone }}" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
+        <i class="fas fa-phone"></i> {{ personal_info.contact.phone }}
+      </a>
+      <span class="hidden sm:inline">|</span>
+      <span class="inline-flex items-center gap-1">
+        <i class="fas fa-map-marker-alt"></i> {{ personal_info.contact.location }}
+      </span>
+    </div>
+    <div class="flex justify-center gap-6 mt-4">
+      <a href="{{ personal_info.contact.linkedin }}" target="_blank" rel="noopener noreferrer" class="text-zinc-300 hover:text-cyan-400 transition-colors">
+        <i class="fab fa-linkedin text-2xl"></i>
+      </a>
+      <a href="{{ personal_info.contact.github }}" target="_blank" rel="noopener noreferrer" class="text-zinc-300 hover:text-cyan-400 transition-colors">
+        <i class="fab fa-github text-2xl"></i>
+      </a>
+    </div>
+  </header>
 
-    <!-- Summary -->
-    <section class="mb-20 animate__animated animate__fadeInUp">
-      <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl">
-        <h2 class="text-3xl font-bold mb-4 text-blue-300">Professional Summary</h2>
-        <p class="text-lg leading-relaxed text-blue-200">
-          Accomplished Full-Stack developer and data analyst with over a decade of business management experience. Recently recognized as a finalist in the InternPulse Cohort 5 program, ranking in the top 123 out of 169 participants in Backend Development. Skilled in leveraging cutting-edge technologies to build scalable systems and derive actionable insights, bridging the gap between business needs and technological solutions.
-        </p>
+  <!-- Professional Summary -->
+  <section class="mb-12 md:mb-20 animate__animated animate__fadeIn">
+    <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl border border-zinc-700">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4 text-teal-300">Professional Summary</h2>
+      <p class="text-base md:text-lg leading-relaxed text-zinc-300 whitespace-pre-line">
+        {{ professional_summary|safe }}
+      </p>
+    </div>
+  </section>
+
+  <!-- About Me Section (Integrated from old about.html) -->
+  <section class="mb-12 md:mb-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+      About Me
+    </h2>
+    <div class="grid md:grid-cols-3 gap-8 items-center">
+      <div class="md:col-span-1">
+        <img
+          src="{% static 'img/boye-4.jpg' %}"
+          alt="Ajayi Adeboye Samuel - Professional Portrait" {# Added alt text #}
+          class="rounded-lg shadow-2xl w-full hover:scale-105 transition-all duration-500 ease-in-out"
+        />
       </div>
-    </section>
-
-    <!-- InternPulse Achievement -->
-    <section class="mb-20 animate__animated animate__fadeInUp">
-      <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl border border-emerald-500/20">
-        <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div class="md:col-span-2">
+        <h3 class="text-2xl font-semibold mb-4 text-teal-300">{{ personal_info.name }}</h3>
+        {% for paragraph in about_me_content %}
+          <p class="text-lg mb-4 text-zinc-300">{{ paragraph }}</p>
+        {% endfor %}
+        <div class="grid grid-cols-2 gap-4 text-zinc-300">
           <div>
-            <h2 class="text-3xl font-bold mb-4 text-emerald-400">InternPulse Finalist Achievement</h2>
-            <p class="text-lg text-blue-200 mb-4">
-              Recognized as a top performer in the InternPulse Cohort 5 program, ranking in the top 123 out of 169 participants in Backend Development track.
-            </p>
-            <p class="text-blue-200">
-              <span class="text-emerald-400 font-semibold">Tech Path:</span> Backend Development<br>
-              <span class="text-emerald-400 font-semibold">Issued:</span> December 15th, 2024
-            </p>
+            <p><strong>Birthday:</strong> {{ personal_info.birthday }}</p>
+            <p><strong>Phone:</strong> {{ personal_info.contact.phone }}</p>
+            <p><strong>City:</strong> {{ personal_info.contact.location }}</p>
           </div>
-          <div class="order-first md:order-last">
-            <img src="{% static 'img/finalist.jpeg' %}" alt="InternPulse Finalist Certificate" class="rounded-lg shadow-xl hover:scale-105 transition-all duration-500 ease-in-out">
+          <div>
+            <p><strong>Degree:</strong> {{ personal_info.degree }}</p>
+            <p><strong>Email:</strong> {{ personal_info.contact.email }}</p>
+            <p><strong>Freelance:</strong> {{ personal_info.freelance_status }}</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-<!-- Projects -->
-<section class="mb-20">
-  <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">My Projects</h2>
-  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-    {% for project in projects %}
-    <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
-      <img src="{% static project.image %}" alt="{{ project.title }}" class="w-full h-48 object-cover rounded-lg mb-4">
-      <h3 class="text-2xl font-bold text-blue-300 mb-2">{{ project.title }}</h3>
-      <p class="text-blue-200 mb-4">{{ project.short_description }}</p>
-      <div class="flex justify-between items-center">
-        <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">{{ project.category }}</span>
-        <div class="flex space-x-2">
-          <a href="{% url 'portfolio_detail' project.id %}" class="text-blue-400 hover:text-blue-300 transition-colors duration-300">
-            View Details
-          </a>
-          <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 transition-colors duration-300">
-            <i class="bi bi-github"></i>
-          </a>
-          {% if project.live_link %}
-          <a href="{{ project.live_link }}" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 transition-colors duration-300">
-            <i class="bi bi-link-45deg"></i>
-          </a>
-          {% endif %}
         </div>
       </div>
     </div>
-    {% endfor %}
-  </div>
-</section>
+  </section>
 
-
-    <!-- Experience -->
-    <section class="mb-20">
-      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Key Experiences</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300 animate__animated animate__fadeInLeft">
-          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Backend Development Intern</h3>
-          <p class="text-blue-200 mb-2">InternPulse | October 2023 – December 2023</p>
-          <ul class="list-disc pl-5 space-y-2 text-blue-200">
-            <li>Developed scalable APIs for next-generation library and healthcare systems</li>
-            <li>Implemented data scraping automation using Selenium, enhancing analytics capabilities</li>
-            <li>Created innovative financial analytics APIs with real-time insights</li>
-            <li>Recognized as a top performer, finishing in the top 123 out of 169 participants</li>
-          </ul>
-        </div>
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300 animate__animated animate__fadeInRight">
-          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Operations Innovator</h3>
-          <p class="text-blue-200 mb-2">Premier Lottery, Lagos | 2017 – Present</p>
-          <ul class="list-disc pl-5 space-y-2 text-blue-200">
-            <li>Revolutionized operational efficiency across 50+ outlets, driving a 20% sales surge</li>
-            <li>Implemented cutting-edge audit processes, fortifying financial security</li>
-            <li>Leveraged data analytics to optimize business strategies and improve decision-making</li>
-          </ul>
+  <!-- Skills Showcase (Integrated from old about.html) -->
+  <section class="mb-12 md:mb-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+      Skills Showcase
+    </h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 shadow-2xl border border-zinc-700">
+        <h3 class="text-xl font-semibold mb-4 text-teal-300">Technical Skills</h3>
+        <div class="space-y-4">
+          {% for skill in skills_showcase_data.technical_skills %}
+            <div class="flex items-center">
+              <span class="w-28 text-zinc-300">{{ skill.name }}</span>
+              <div class="flex-1 bg-zinc-700 rounded-full h-2">
+                <div class="bg-cyan-500 h-2 rounded-full" style="width: {{ skill.percentage }}%"></div>
+              </div>
+            </div>
+          {% endfor %}
         </div>
       </div>
-    </section>
+      <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 shadow-2xl border border-zinc-700">
+        <h3 class="text-xl font-semibold mb-4 text-teal-300">Soft Skills</h3>
+        <div class="space-y-4">
+          {% for skill in skills_showcase_data.soft_skills %}
+            <div class="flex items-center">
+              <span class="w-28 text-zinc-300">{{ skill.name }}</span>
+              <div class="flex-1 bg-zinc-700 rounded-full h-2">
+                <div class="bg-teal-500 h-2 rounded-full" style="width: {{ skill.percentage }}%"></div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Services -->
-    <section class="mb-20">
-      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Comprehensive Services</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {% for service in services %}
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300">
-          <div class="text-emerald-400 mb-4">
-            <i class="{{ service.icon }} text-4xl"></i>
+  <!-- InternPulse Achievement -->
+  <section class="mb-12 md:mb-20 animate__animated animate__fadeInUp">
+    <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl border border-cyan-500/20">
+      <div class="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-3 text-cyan-400">{{ internpulse_achievement.title }}</h2>
+          <p class="text-base md:text-lg text-zinc-300 mb-3">{{ internpulse_achievement.description }}</p>
+          <p class="text-zinc-300 text-sm md:text-base">
+            <span class="text-cyan-400 font-semibold">Tech Path:</span> {{ internpulse_achievement.tech_path }}<br>
+            <span class="text-cyan-400 font-semibold">Issued:</span> {{ internpulse_achievement.issued }}
+          </p>
+        </div>
+        <div class="order-first md:order-last">
+          <img src="{% static internpulse_achievement.image %}" alt="InternPulse Finalist Certificate" class="rounded-lg shadow-xl hover:scale-105 transition-all duration-500 ease-in-out w-full h-auto object-cover"> {# Added alt text #}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wekume Certificate of Appreciation -->
+  <section class="mb-12 md:mb-20 animate__animated animate__fadeInUp">
+    <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl border border-teal-500/20">
+      <div class="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold mb-3 text-teal-400">{{ wekume_certificate.title }}</h2>
+          <p class="text-base md:text-lg text-zinc-300 mb-3">{{ wekume_certificate.description }}</p>
+          <p class="text-zinc-300 text-sm md:text-base">
+            <span class="text-teal-400 font-semibold">Issued To:</span> {{ wekume_certificate.issued_to }}
+          </p>
+          <div class="mt-4 space-y-2">
+            {% for signatory in wekume_certificate.signatories %}
+              <p class="text-zinc-300 text-sm md:text-base">
+                <span class="font-semibold">{{ signatory.name }}</span><br>
+                <span class="text-zinc-400">{{ signatory.position }}</span>
+              </p>
+            {% endfor %}
           </div>
-          <h3 class="text-2xl font-bold text-blue-300 mb-4">{{ service.title }}</h3>
-          <p class="text-blue-200 mb-4">{{ service.description }}</p>
+        </div>
+        <div class="order-first md:order-last">
+          <img src="{% static wekume_certificate.image %}" alt="Wekume Certificate of Appreciation" class="rounded-lg shadow-xl hover:scale-105 transition-all duration-500 ease-in-out w-full h-auto object-cover"> {# Added alt text #}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Experience -->
+  <section class="mb-12 md:mb-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+      Professional Experience
+    </h2>
+    <div class="space-y-8">
+      {% for exp in professional_experience %}
+      <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl transform hover:scale-[1.01] transition-all duration-300 animate__animated animate__fadeInUp">
+        <div class="flex flex-wrap justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl md:text-2xl font-semibold text-cyan-400">{{ exp.title }}</h3>
+            <p class="text-zinc-300 text-base">{{ exp.company }}</p>
+          </div>
+          <p class="text-zinc-300 text-sm md:text-base">{{ exp.duration }}</p>
+        </div>
+        <ul class="list-disc pl-5 space-y-2 text-zinc-300 text-sm md:text-base">
+          {% for res in exp.responsibilities %}
+          <li>{{ res }}</li>
+          {% endfor %}
+        </ul>
+        <div class="mt-4 flex flex-wrap gap-2">
+          {% for tech in exp.technologies %}
+          <span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full text-xs md:text-sm">{{ tech }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Key Projects -->
+  <section class="mb-12 md:mb-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+      Key Projects
+    </h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for project in key_projects %}
+      <div class="bg-white/5 backdrop-blur-md rounded-xl p-0 shadow-2xl transform hover:scale-[1.02] transition-all duration-300 animate__animated animate__fadeInUp">
+        <img src="{% static project.images.0 %}" alt="{{ project.title }}" class="w-full h-48 object-cover rounded-t-xl"> {# Added alt text #}
+        <div class="p-6">
+          <h3 class="text-xl md:text-2xl font-bold text-teal-300 mb-2">
+            {# Make the title itself a link to the detail page #}
+            <a href="{% url 'portfolio_detail' project.id %}" class="hover:text-teal-200 transition-colors duration-300">
+              {{ project.title }}
+            </a>
+          </h3>
+          <p class="text-zinc-300 mb-4 text-sm md:text-base">{{ project.short_description }}</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            {% for tech in project.technologies|slice:":3" %}
+            <span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full text-xs md:text-sm">{{ tech }}</span>
+            {% endfor %}
+            {% if project.technologies|length > 3 %}
+            <span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full text-xs md:text-sm">+{{ project.technologies|length|add:"-3" }} more</span>
+            {% endif %}
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="bg-teal-500/20 text-teal-300 px-2 py-1 rounded-full text-xs md:text-sm">{{ project.category }}</span>
+            <div class="flex space-x-3">
+              {% if project.github_url %}
+              <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="text-teal-400 hover:text-teal-300 transition-colors duration-300">
+                <i class="fab fa-github text-xl"></i>
+              </a>
+              {% endif %}
+              {% if project.live_link %}
+              <a href="{{ project.live_link }}" target="_blank" rel="noopener noreferrer" class="text-teal-400 hover:text-teal-300 transition-colors duration-300">
+                <i class="bi bi-link-45deg text-xl"></i> {# Assuming bi-link-45deg is available via Bootstrap Icons or similar #}
+              </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Technical Skills -->
+  <section class="mb-12 md:mb-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+      Technical Skills
+    </h2>
+    <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl border border-zinc-700">
+      <div class="space-y-6">
+        {% for skill_group in technical_skills %}
+        <div>
+          <h3 class="text-xl md:text-2xl font-semibold mb-3 text-cyan-400">{{ skill_group.category }}</h3>
           <div class="flex flex-wrap gap-2">
-            {% for tag in service.tags %}
-            <span class="bg-emerald-500/20 text-emerald-300 px-2 py-1 rounded-full text-sm">{{ tag }}</span>
+            {% for skill in skill_group.skills %}
+            <span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full text-xs md:text-sm">{{ skill }}</span>
             {% endfor %}
           </div>
         </div>
         {% endfor %}
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Education -->
-    <section class="mb-20">
-      <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Educational Foundation</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl animate__animated animate__fadeInLeft">
-          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Bachelor of Science in Accounting</h3>
-          <p class="text-blue-200">Olabisi Onabanjo University</p>
+  <!-- Core Competencies -->
+  <section class="mb-12 md:mb-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+      Core Competencies
+    </h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for competency in core_competencies %}
+      <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl transform hover:scale-[1.01] transition-all duration-300 animate__animated animate__fadeInUp">
+        <div class="text-cyan-400 mb-4">
+          <i class="{{ competency.icon_class }} text-4xl"></i>
         </div>
-        <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl animate__animated animate__fadeInRight">
-          <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Certifications</h3>
-          <ul class="list-disc pl-5 space-y-2 text-blue-200">
-            <li>Backend Development with Python Django - Univelcity</li>
-            <li>Data Analytics Professional Program - One Campus Academy</li>
-            <li>InternPulse Cohort 5 Finalist - Backend Development</li>
-          </ul>
+        <h3 class="text-xl md:text-2xl font-bold text-teal-300 mb-3">{{ competency.title }}</h3>
+        <p class="text-zinc-300 mb-4 text-sm md:text-base">{{ competency.description }}</p>
+        <div class="flex flex-wrap gap-2">
+          {% for tag in competency.tags %}
+          <span class="bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full text-xs md:text-sm">{{ tag }}</span>
+          {% endfor %}
         </div>
       </div>
-    </section>
+      {% endfor %}
+    </div>
+  </section>
 
-    <!-- Recommendation -->
+  <!-- Education & Certifications -->
+  <section class="mb-12 md:mb-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+      Education & Certifications
+    </h2>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl animate__animated animate__fadeInLeft border border-zinc-700">
+        <h3 class="text-xl md:text-2xl font-semibold mb-4 text-cyan-400">Education</h3>
+        {% for edu in education %}
+        <div class="mb-4 last:mb-0">
+          <p class="text-zinc-300 text-base md:text-lg font-semibold">{{ edu.degree }}</p>
+          <p class="text-zinc-300 text-sm md:text-base">{{ edu.university }} ({{ edu.year }})</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl animate__animated animate__fadeInRight border border-zinc-700">
+        <h3 class="text-xl md:text-2xl font-semibold mb-4 text-cyan-400">Certifications</h3>
+        <ul class="list-disc pl-5 space-y-2 text-zinc-300 text-sm md:text-base">
+          {% for cert in certifications %}
+          <li>{{ cert }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </section>
 
-<section class="mb-20">
-  <h2 class="text-4xl font-bold mb-8 text-center text-blue-300">Recommendation</h2>
-  <div class="bg-white/10 backdrop-blur-md rounded-xl p-8 shadow-2xl">
-    <blockquote class="text-blue-200 text-lg italic mb-4">
-      "{{ recommendation.text }}"
-    </blockquote>
-    <p class="text-emerald-400 font-semibold">{{ recommendation.name }}</p>
-    <p class="text-emerald-400 font-semibold">{{ recommendation.author }}</p>
-    <p class="text-blue-200">{{ recommendation.position }}</p>
-  </div>
-</section>
+  <!-- Recommendation -->
+  <section class="mb-12 md:mb-20">
+    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+      Recommendation
+    </h2>
+    <div class="bg-white/5 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-2xl border border-zinc-700">
+      <blockquote class="text-zinc-300 text-base md:text-lg italic mb-4">
+        "{{ recommendation.text }}"
+      </blockquote>
+      <p class="text-cyan-400 font-semibold text-base md:text-lg">{{ recommendation.name }}</p>
+      <p class="text-cyan-400 font-semibold text-sm md:text-base">{{ recommendation.author }}</p>
+      <p class="text-zinc-300 text-sm md:text-base">{{ recommendation.position }}</p>
+    </div>
+  </section>
 
-    <!-- Call to Action -->
-    <section class="text-center animate__animated animate__fadeInUp">
-      <a href="{% url 'contact' %}" class="inline-block bg-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-600 transition-colors duration-300">Let's Innovate Together</a>
-    </section>
-  </div>
+  <!-- Download Resume & Call to Action -->
+  <section class="text-center animate__animated animate__fadeInUp">
+    <a href="{% static personal_info.resume_pdf %}" download class="inline-block bg-cyan-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-cyan-700 transition-colors duration-300 mr-4">
+      <i class="fas fa-download mr-2"></i>Download Resume
+    </a>
+    <a href="{% url 'contact' %}" class="inline-block bg-teal-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-teal-700 transition-colors duration-300">
+      Let's Innovate Together
+    </a>
+  </section>
+</div>
 </div>
 {% endblock content %}

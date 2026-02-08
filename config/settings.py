@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 from django.core.management.utils import get_random_secret_key
-import dj_database_url
 import pymysql
 
 pymysql.install_as_MySQLdb()
@@ -106,23 +105,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Internationalization
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
-from pathlib import Path
-
-
 # Static files settings
-STATIC_URL = '/static/'  # This is the URL prefix for static files
-
-# Ensure STATIC_ROOT is set to a correct filesystem path
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Full filesystem path for static files in production
-
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Static files will be collected here
 STATICFILES_DIRS = [
-    BASE_DIR / "design" / "static",  # Adjust the path as necessary
-]
+    BASE_DIR / 'design' / 'static',
+    ] 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media" 
 
 
 STATICFILES_FINDERS = [

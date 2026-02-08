@@ -2,16 +2,580 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import ContactSubmission
-import requests
+from .models import ContactSubmission 
 import random
 from django.http import JsonResponse
 import json
 
 
 
+
+personal_info = {
+    'name': 'Ajayi Adeboye Samuel',
+    'title': 'Full-Stack Developer • Backend Engineer • AI & NLP Engineer (In Progress)',
+    'tagline': 'Python/Django • Node.js/Express • REST APIs • Authentication • Payments • MongoDB/PostgreSQL',
+    'contact': {
+        'email': 'contact@elmelvinp.com',
+        'phone': '+234 703 349 5178',
+        'location': 'Lagos, Nigeria',
+        'linkedin': 'https://linkedin.com/in/adeboye-melvin',
+        'github': 'https://github.com/officialmelvinp',
+        'portfolio': 'https://www.elmelvip.com/portfolio',
+    },
+    'resume_pdf': 'pdf/portfolio_cv.pdf',
+    'birthday': 'June 15th',
+    'degree': 'B.Sc. Accounting',
+    'freelance_status': 'Available',
+}
+
+# Professional Summary
+professional_summary = """
+Results-driven Full-Stack Developer and Backend Engineer with strong experience building scalable web applications, RESTful APIs, and backend systems using Python/Django and Node.js/Express.
+
+I specialize in authentication systems, role-based access control, payment integrations, real-time communication, and cloud deployments using PostgreSQL, MongoDB, Docker, and modern DevOps workflows.
+
+Beyond engineering, I bring 15+ years of operations and business management experience, allowing me to design software that solves real business problems, not just technical ones.
+
+Currently expanding into AI & NLP, focusing on Transformers, LLMs, LangChain, and intelligent backend systems. Open to Backend, Full-Stack, and AI-focused roles (remote or hybrid).
+
+"""
+
+about_me_content = [
+"""
+I’m a Full-Stack Developer and Backend Engineer focused on building secure, scalable, real-world systems using Node.js, Express, MongoDB, PostgreSQL, and Python/Django. I approach software development with a product-driven mindset, designing systems that solve real operational problems, not just technical ones.
+
+With over a decade of experience in business management, I understand how technology supports decision-making, efficiency, and growth. This background allows me to bridge the gap between business needs and technical execution.
+
+My core expertise lies in backend architecture, including authentication and authorization, role-based access control, email verification workflows, payment integrations (Paystack), and RESTful API design. I prioritize security, clarity, and maintainability in every system I build.
+
+One of my recent projects is a Dental Clinic Appointment System backend, where I implemented secure JWT authentication, user onboarding, appointment scheduling, payment processing, and transactional email notifications.
+
+Beyond backend development, I work comfortably across the frontend with React and Next.js. This enables me to deliver complete end-to-end solutions and collaborate effectively across the stack.
+
+I’m also expanding into AI and NLP engineering, building a foundation in machine learning to support intelligent, data-driven applications in future systems.
+"""
+]
+
+
+#
+music_prowess_data = {
+    'description_1': 'Beyond the world of technology and business, I am a passionate musician with a flair for creating soul-stirring melodies. My musical journey began at a young age and has since become an integral part of my creative expression.',
+    'description_2': 'As a versatile artist, I blend various genres to create a unique sound that resonates with listeners. My music is a reflection of my life experiences, emotions, and the world around me.',
+    'skills': [
+        'Proficient in multiple instruments',
+        'Experienced in songwriting and composition',
+        'Skilled in music production and arrangement',
+        'Performed at various local and national events',
+    ],
+    'image': 'img/clout.jpeg',
+}
+
+
+skills_showcase_data = {
+    'technical_skills': [
+    {'name': 'Python', 'percentage': 90},
+    {'name': 'Django', 'percentage': 88},
+    {'name': 'Node.js', 'percentage': 85},
+    {'name': 'Express.js', 'percentage': 85},
+    {'name': 'REST APIs', 'percentage': 90},
+    {'name': 'Authentication & Authorization (JWT)', 'percentage': 88},
+    {'name': 'MongoDB', 'percentage': 85},
+    {'name': 'PostgreSQL', 'percentage': 82},
+    {'name': 'SQL', 'percentage': 80},
+    {'name': 'Payments Integration (Paystack)', 'percentage': 80},
+    {'name': 'Git & GitHub', 'percentage': 85},
+    {'name': 'Docker (Basic)', 'percentage': 70},
+    {'name': 'AI & NLP (In Progress)', 'percentage': 60},
+],
+
+'soft_skills': [
+    {'name': 'Problem Solving', 'percentage': 95},
+    {'name': 'Leadership', 'percentage': 92},
+    {'name': 'Communication', 'percentage': 90},
+    {'name': 'Adaptability', 'percentage': 88},
+    {'name': 'Product Thinking', 'percentage': 90},
+    {'name': 'Attention to Detail', 'percentage': 88},
+]
+
+}
+
+
+# InternPulse Achievement
+internpulse_achievement = {
+    'title': 'InternPulse Finalist Achievement',
+    'description': 'Recognized as a top performer in the InternPulse Cohort 5 program, ranking in the top 123 out of 169 participants in Backend Development track.',
+    'tech_path': 'Backend Development',
+    'issued': 'December 15th, 2024',
+    'image': 'img/finalist.jpeg',
+}
+
+# Wekume Certificate
+wekume_certificate = {
+    'title': 'Wekume Certificate of Appreciation',
+    'description': 'Recognized for bringing a wealth of tech knowledge, energy, and drive to Wekume, helping to push the platform forward as a critical tool for university students.',
+    'issued_to': 'Adeboye Ajayi',
+    'image': 'img/wekume.jpg',
+    'signatories': [
+        {'name': 'Joshua Emmanuel Walusimbi', 'position': 'CEO'},
+        {'name': 'Bronwyn O\'Hara', 'position': 'Exec. Assistant'},
+    ]
+}
+
+# Technical Skills
+technical_skills = [
+    {
+        'category': 'Languages',
+        'skills': ['Python', 'JavaScript', 'TypeScript']
+    },
+    {
+        'category': 'Frameworks & Libraries',
+        'skills': [
+            'Django', 'Django REST Framework', 'Django Channels',
+            'Node.js', 'Express.js',
+            'Next.js (App Router)', 'React'
+        ]
+    },
+    {
+        'category': 'Databases & Caching',
+        'skills': [
+            'PostgreSQL', 'MongoDB', 'Redis',
+            'SQLite', 'Supabase', 'Neon'
+        ]
+    },
+    {
+        'category': 'APIs & Authentication',
+        'skills': [
+            'RESTful APIs',
+            'JWT (Access & Refresh Tokens)',
+            'OAuth2',
+            'Role-Based Access Control (RBAC)',
+            'Multi-Factor Authentication (MFA)',
+            'WebSockets'
+        ]
+    },
+    {
+        'category': 'Payments & Messaging',
+        'skills': [
+            'Paystack', 'Flutterwave',
+            'Stripe', 'PayPal',
+            'Nodemailer', 'Resend'
+        ]
+    },
+    {
+        'category': 'Cloud, DevOps & Tools',
+        'skills': [
+            'Docker', 'Celery',
+            'Git', 'GitHub',
+            'Render', 'Vercel'
+        ]
+    },
+    {
+        'category': 'API Documentation & Testing',
+        'skills': [
+            'Swagger / OpenAPI',
+            'drf-yasg',
+            'Unit Testing',
+            'API Testing',
+            'Test-Driven Development (TDD)'
+        ]
+    },
+    {
+        'category': 'AI & NLP (In Progress)',
+        'skills': [
+            'Python NLP',
+            'Transformers',
+            'Large Language Models (LLMs)',
+            'LangChain',
+            'Hugging Face'
+        ]
+    },
+    {
+        'category': 'Other',
+        'skills': [
+            'Data Analysis',
+            'Selenium',
+            'Rate Limiting & Throttling',
+            'E-commerce Systems',
+            'Real-time Inventory & Pre-orders',
+            'Automated Order Fulfillment',
+            'UI/UX (Tailwind CSS, shadcn/ui)'
+        ]
+    }
+]
+
+
+# Professional Experience
+professional_experience = [
+    {
+        'title': 'Full-Stack Developer',
+        'company': 'AMA Fashion E-commerce Platform',
+        'duration': 'Jun 2025 – Present',
+        'responsibilities': [
+            'Architected and implemented a complete online fashion store using Next.js (App Router) for both frontend and robust API Routes backend, ensuring a seamless shopping experience.',
+            'Successfully integrated Stripe and PayPal APIs to facilitate secure, multi-currency transactions (AED, GBP, USD), managing complex checkout sessions, handling asynchronous webhooks for payment verification, and ensuring accurate order finalization and database recording.',
+            'Developed a sophisticated backend with Neon (PostgreSQL) for real-time stock tracking, dynamic pricing, and a critical "Buy Now + Pre-Order" logic, enabling sales of both in-stock and future-available items, and handling mixed-cart scenarios with precise quantity allocation.',
+            'Streamlined post-purchase workflows by automating order creation, precise stock deduction upon payment confirmation, and dispatching comprehensive email notifications (order confirmation, shipping updates, delivery alerts, vendor notifications) via Resend and Nodemailer.',
+            'Built a powerful admin interface utilizing Next.js Server Actions for efficient management of product inventory (add, edit, delete), real-time quantity and status updates, pre-order date settings, and detailed order status tracking (New, Processing, Completed, Shipped, Delivered, Cancelled, Refunded, On-Hold).',
+            'Managed database schema evolution and data integrity through custom migration scripts, ensuring smooth transitions and reliable data storage.',
+            'Crafted an elegant, mobile-first user experience using Shadcn/UI and Tailwind CSS, ensuring seamless and accessible shopping across all devices.',
+            'Leveraged Vercel for continuous integration and deployment, ensuring high performance, scalability, and reliability of the e-commerce platform.',
+        ],
+        'technologies': [
+            'Next.js', 'React', 'TypeScript', 'Neon (PostgreSQL)', 'Stripe API', 'PayPal API',
+            'Resend', 'Nodemailer', 'Shadcn/UI', 'Tailwind CSS', 'Vercel', 'UUID', 'date-fns', 'sonner'
+        ],
+    },
+    {
+        'title': 'Backend Developer',
+        'company': 'Chat Service Platform (Personal Project)',
+        'duration': 'Apr 2025 – Present',
+        'responsibilities': [
+            'Architected enterprise-grade authentication with JWT, refresh tokens, and multi-device sessions.',
+            'Built comprehensive social features supporting celebrity-scale user bases (millions of connections) with intelligent pagination and real-time friend discovery.',
+            'Implemented Swagger/OpenAPI documentation with Bearer token auth, reducing integration time by 70%.',
+            'Designed friend request system handling bulk operations, mutual friend discovery, and advanced user search with smart filtering.',
+            'Developed production features: user management with real-time online tracking, scalable pagination (20-25 items per endpoint), and enterprise-grade admin interface.',
+            'Implemented security features: rate limiting, throttling, account deactivation/deletion, secure logout with token blacklisting.',
+            'Integrated Africa\'s Talking API for multi-factor authentication.',
+            'Achieved 100% test coverage with 26+ comprehensive test cases across authentication and friend management.',
+            'Optimized database with strategic use of select_related() and prefetch_related() for celebrity-scale performance.',
+            'Designed independent, scalable microservices across authentication, friend management, and messaging (in development).',
+        ],
+        'technologies': ['Django', 'DRF', 'PostgreSQL', 'JWT', 'Swagger/OpenAPI', 'drf-yasg', 'Africa\'s Talking API'],
+    },
+    {
+        'title': 'Backend Developer',
+        'company': 'Wekume Project (Remote)',
+        'duration': 'Apr 2024 – Present',
+        'responsibilities': [
+            'Architected enterprise-grade authentication microservice with JWT, refresh tokens, and multi-device sessions.',
+            'Implemented Swagger/OpenAPI documentation with Bearer token auth, reducing integration time by 70%.',
+            'Built production-ready user management with real-time online tracking and scalable pagination.',
+            'Developed security features: rate limiting, throttling, deactivation, deletion, password recovery.',
+            'Integrated Africa\'s Talking API for SMS multi-factor authentication.',
+            'Achieved 100% test coverage with comprehensive test cases.',
+            'Designed microservices architecture for scalable services across authentication, messaging, and user management.',
+        ],
+        'technologies': ['Django', 'DRF', 'PostgreSQL', 'JWT', 'Swagger/OpenAPI', 'drf-yasg', 'Africa\'s Talking API'],
+    },
+    {
+        'title': 'Backend Developer Intern',
+        'company': 'InternPulse (Remote)',
+        'duration': 'Oct 2023 – Oct 2024',
+        'responsibilities': [
+            'Designed scalable APIs for library systems, healthcare, and inventory.',
+            'Implemented advanced filtering and automated data scraping with Selenium.',
+            'Built financial analytics APIs delivering real-time insights.',
+        ],
+        'technologies': ['Python', 'Django', 'Selenium', 'API Development'],
+    },
+    {
+        'title': 'Operations Support',
+        'company': 'Premier Lottery (Lagos)',
+        'duration': '2017 – Present',
+        'responsibilities': [
+            'Managed operations across 50+ outlets, boosting efficiency and revenue by 20%.',
+            'Led budgeting and compliance audits to reduce regulatory risks.',
+        ],
+        'technologies': ['Team Management', 'Data Analysis', 'Operations'],
+    },
+    {
+        'title': 'Intern (Forage Program)',
+        'company': 'Accenture North America (Remote)',
+        'duration': 'Sep 2023',
+        'responsibilities': ['Cleaned datasets, generated insights, and created data visualizations.'],
+        'technologies': ['Data Analysis', 'Data Visualization'],
+    },
+]
+
+
+key_projects = [
+    
+    {
+    'id': 'dental-clinic-backend',
+    'title': 'Dental Clinic Appointment & Payment System',
+    'short_description': 'Production-ready backend system for dental clinics featuring authentication, email verification, appointment booking, and Paystack payments.',
+    'images': ['img/dental.jpg'],
+    'category': 'Backend Development',
+    'project_type': 'API Service',
+    'project_date': 'July 2026',
+    'github_url': 'https://github.com/officialmelvinp/Dental_care_home',
+    'details': [
+        'JWT-based authentication with access & refresh tokens.',
+        'Email verification and resend verification flow.',
+        'Appointment booking and management system.',
+        'Paystack payment integration with transaction tracking.',
+        'Role-based access control (admin & patient).',
+        'Secure logout and token invalidation.',
+    ],
+    'technologies': [
+        'Node.js', 'Express.js', 'MongoDB', 'JWT', 'Paystack', 'Nodemailer'
+    ],
+},
+
+    {
+        'id': 'utmost-healthcare-solutions',
+        'title': 'Utmost Healthcare Solutions LLC Website',
+        'short_description': 'A professional Next.js website for a home healthcare provider, showcasing their services, mission, and values with a focus on compassionate care.',
+        'images': ['img/utmost.JPG'],
+        'category': 'Full-Stack Development',
+        'project_type': 'Web Application',
+        'project_date': 'May 2025',
+        'github_url': 'https://github.com/officialmelvinp/utmost',
+        'live_link': 'https://www.urutmost.com',
+        'details': [
+            'Developed a responsive Next.js application with a clean, user-friendly interface.',
+            'Implemented a prominent hero section highlighting the company\'s core message: "Always Caring. Always Here."',
+            'Detailed various healthcare services, including Skilled Nursing, Personal Care, and Companion Services.',
+            'Showcased the company\'s mission, core values (Compassion, Excellence, Family-Focused, Reliability), and experienced team.',
+            'Integrated contact information and clear calls-to-action for service inquiries.',
+            'Displayed service areas across various counties in Georgia and flexible payment options.',
+            'Utilized Tailwind CSS for styling and Lucide React for icons.',
+        ],
+        'technologies': ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Lucide React'],
+    },
+    {
+        'id': 'ama-fashion-ecommerce',
+        'title': 'AMA Fashion E-commerce Platform',
+        'short_description': 'A comprehensive full-stack e-commerce solution designed to facilitate online sales of luxury African fashion, featuring secure multi-currency payment processing, advanced real-time inventory management with pre-order capabilities, and fully automated order fulfillment.',
+        'images': ['img/ama1.JPG'],
+        'category': 'Full-Stack Development',
+        'project_type': 'E-commerce Platform',
+        'project_date': 'June 2025',
+        'github_url': 'https://github.com/officialmelvinp/ama-fashion',
+        'live_link': 'https://amariahco.com',
+        'details': [
+            'Dynamic display of products with detailed information and multi-currency pricing.',
+            'Intuitive cart management with quantity adjustments and item removal.',
+            'Seamless integration with Stripe and PayPal for secure payment processing, including robust webhook handling for payment status updates and order finalization.',
+            'Unique "Buy Now + Pre-Order" system allowing customers to purchase both in-stock and pre-order items within a single transaction, with intelligent stock allocation and pre-order date tracking.',
+            'Automated email confirmations, shipping updates, delivery alerts, and vendor notifications to streamline communication, powered by Resend and Nodemailer.',
+            'Robust dashboard for product CRUD operations, real-time inventory adjustments (stock, status, pre-order dates), and comprehensive order lifecycle management (tracking payment, order, and shipping statuses).',
+            'Enabled direct-to-consumer sales, significantly automated critical business operations (inventory, order processing, customer communication), and provided a highly reliable and user-friendly shopping experience.',
+        ],
+        'technologies': [
+            'Next.js', 'React', 'TypeScript', 'Neon (PostgreSQL)', 'Stripe API', 'PayPal API',
+            'Resend', 'Nodemailer', 'Shadcn/UI', 'Tailwind CSS', 'Vercel', 'UUID', 'date-fns', 'sonner'
+        ],
+    },
+    {
+        'id': 'chat-service-microservices',
+        'title': 'Chat Service Microservices Architecture',
+        'short_description': 'A scalable chat service with enterprise-grade authentication, friend management, and interactive API documentation.',
+        'images': ['img/chat.JPG'],
+        'category': 'Backend Development',
+        'project_type': 'API Service',
+        'project_date': 'April 2025',
+        'github_url': 'https://github.com/officialmelvinp/chat_service',
+        'details': [
+            'JWT, refresh tokens, user management with enterprise security.',
+            'Celebrity-scale social features with smart pagination, friend requests, mutual friend discovery, and advanced user search.',
+            'Swagger docs with live testing and auto-generation.',
+            'Rate limiting, throttling, account control, online status tracking, bulk admin operations.',
+            'Optimized for millions of users with strategic database queries and custom pagination.',
+            'Achieved 100% test coverage, reduced unauthorized access by 95%, eliminated API integration confusion.',
+        ],
+        'technologies': ['Django', 'DRF', 'PostgreSQL', 'JWT', 'Swagger/OpenAPI', 'drf-yasg'],
+    },
+    {
+        'id': 'wekume-authentication',
+        'title': 'Wekume Authentication System',
+        'short_description': 'A secure JWT-based authentication system with profile management and password recovery.',
+        'images': ['img/wekume.jpg'],
+        'category': 'Backend Development',
+        'project_type': 'Authentication Service',
+        'project_date': 'April 2025',
+        'github_url': 'https://github.com/Wekume/Wekume-App-backend/tree/setup/project-structure',
+        'details': [
+            'Secure JWT setup with profile management and password recovery.',
+            'Phone/email verification; reduced unauthorized logins by 95%.',
+        ],
+        'technologies': ['Django', 'DRF', 'JWT', 'Africa\'s Talking API'],
+    },
+    {
+        'id': 'dolapo-udekwe-makeup',
+        'title': 'Dolapo Udekwe Makeup Artist Website',
+        'short_description': 'Full-stack Next.js website for a professional makeup artist with online booking.',
+        'images': ['img/dolapo.jpg'],
+        'category': 'Full-Stack Development',
+        'project_type': 'Web Application',
+        'project_date': 'Dec 2024',
+        'github_url': 'https://github.com/officialmelvinp/makeup_website',
+        'live_link': 'https://dolapoudekwe.co.uk',
+        'details': [
+            'Developed a responsive full-stack website using Next.js and Tailwind CSS',
+            'Implemented an online booking system with real-time availability',
+            'Integrated with Supabase for backend functionality and data management',
+            'Utilized server-side rendering for improved SEO performance',
+            'Deployed and managed the site using Vercel for optimal performance',
+        ],
+        'technologies': ['Next.js', 'React', 'Tailwind CSS', 'Supabase', 'Vercel'],
+    },
+    {
+        'id': 'library-api',
+        'title': 'Library Management API',
+        'short_description': 'Comprehensive library management system',
+        'images': ['img/library.jpg'],
+        'category': 'API',
+        'project_type': 'API Service',
+        'project_date': 'December 2023',
+        'github_url': 'https://github.com/officialmelvinp/library-api',
+        'details': [
+            'Advanced filtering capabilities by title, author, and genre',
+            'Integration with PostgreSQL for efficient data management',
+            'Implementation of Django signals for automated status updates',
+            'Deployment on Render for real-time data handling and scalability'
+        ],
+        'technologies': ['Python', 'Django', 'PostgreSQL', 'Django REST Framework'],
+    },
+    {
+        'id': 'imf-analysis',
+        'title': 'IMF Web Scraping',
+        'short_description': 'Data analysis of IMF economic indicators',
+        'images': ['img/imf.jpg'],
+        'category': 'Data Analysis',
+        'project_type': 'Data Analysis Script',
+        'project_date': 'November 2024',
+        'github_url': 'https://github.com/officialmelvinp/group5-da-dev-db',
+        'details': [
+            'Automated data extraction from IMF website using BeautifulSoup',
+            'Performed comprehensive analysis of economic indicators using Pandas and NumPy',
+            'Generated visualizations to highlight trends and patterns in global economic data',
+            'Produced actionable insights for economic forecasting and policy analysis'
+        ],
+        'technologies': ['Python', 'BeautifulSoup', 'Pandas', 'NumPy'],
+    },
+    {
+        'id': 'healthcare-app',
+        'title': 'Healthcare Appointment',
+        'short_description': 'Appointment booking system for healthcare',
+        'images': ['img/health.jpg'],
+        'category': 'API',
+        'project_type': 'API Service',
+        'project_date': 'June 2024',
+        'github_url': 'https://github.com/officialmelvinp/healthcare_app',
+        'details': [
+            'Built a secure and efficient appointment booking system for healthcare providers',
+            'Implemented real-time scheduling and management features',
+            'Integrated with healthcare provider calendars for seamless coordination',
+            'Developed automated reminders and notifications for patients and staff'
+        ],
+        'technologies': ['Python', 'Django', 'PostgreSQL', 'Django REST Framework'],
+    },
+    {
+        'id': 'renergy-hub',
+        'title': 'Financial Analytics for Renergy Hub',
+        'short_description': 'Real-time financial analytics system',
+        'images': ['img/renergy.jpg'],
+        'category': 'Data Analysis',
+        'project_type': 'Data Analytics Platform',
+        'project_date': 'Oct 2024',
+        'github_url': 'https://github.com/InternPulse/renergy-hub-django-backend',
+        'live_link': 'https://www.renergyhub.com.ng',
+        'details': [
+            'Developed a real-time financial analytics system for renewable energy projects',
+            'Created custom dashboards for different stakeholders to visualize key metrics',
+            'Implemented predictive analytics for project outcomes and financial forecasting',
+            'Integrated with multiple data sources and financial APIs for comprehensive analysis'
+        ],
+        'technologies': ['Python', 'Django', 'Pandas', 'NumPy', 'Financial APIs'],
+    },
+    {
+        'id': 'product-management',
+        'title': 'Product Management',
+        'short_description': 'Efficient product management system',
+        'images': ['img/product.jpg'],
+        'category': 'Management',
+        'project_type': 'Web Application',
+        'project_date': 'August 2024',
+        'github_url': 'https://github.com/officialmelvinp/product_management',
+        'details': [
+            'Designed and implemented a product management system for e-commerce platforms',
+            'Developed features for inventory tracking, order processing, and supplier management',
+            'Implemented automated reordering system based on inventory levels and sales data',
+            'Created analytics and reporting tools for product performance evaluation'
+        ],
+        'technologies': ['Python', 'Django', 'SQLite'],
+    },
+]
+
+# Education
+education = [
+    {'degree': 'Bachelor of Science in Accounting', 'university': 'Olabisi Onabanjo University', 'year': '2016'},
+    {'degree': 'Diploma in Business Administration', 'university': 'Olabisi Onabanjo University', 'year': '2009'},
+]
+
+# Certifications
+certifications = [
+    'InternPulse Cohort 5 Finalist – Backend Development (2023)',
+    'Backend Development with Python Django – Univelcity (2023)',
+    'Data Analytics Professional Program – One Campus Academy (2023)',
+]
+
+
+core_competencies = [
+    {
+        'icon_class': 'fas fa-code',
+        'title': 'API Architecture',
+        'description': 'Designs scalable, well-documented RESTful APIs built for high performance and long-term maintainability.',
+        'tags': ['RESTful APIs', 'Microservices', 'Performance Optimization']
+    },
+    {
+        'icon_class': 'fas fa-users',
+        'title': 'Social Features',
+        'description': 'Implements friend systems, user discovery, and real-time social interactions.',
+        'tags': ['Friend Systems', 'User Discovery', 'Real-time Features']
+    },
+    {
+        'icon_class': 'fas fa-shield-alt',
+        'title': 'Security',
+        'description': 'Applies secure authentication and access control using industry best practices.',
+        'tags': ['JWT', 'Rate Limiting', 'Authentication']
+    },
+    {
+        'icon_class': 'fas fa-file-alt',
+        'title': 'Documentation',
+        'description': 'Creates clear, developer-friendly API documentation with interactive testing.',
+        'tags': ['Swagger', 'OpenAPI', 'API Documentation']
+    },
+    {
+        'icon_class': 'fas fa-lightbulb',
+        'title': 'Problem Solving',
+        'description': 'Resolves complex backend challenges involving authentication, scalability, and system reliability.',
+        'tags': ['Scalability', 'Debugging', 'System Design']
+    },
+    {
+        'icon_class': 'fas fa-briefcase',
+        'title': 'Team Collaboration',
+        'description': 'Builds production-ready systems that integrate smoothly with frontend and product teams.',
+        'tags': ['Collaboration', 'Integration', 'Production-Ready Systems']
+    },
+    {
+        'icon_class': 'fas fa-chart-bar',
+        'title': 'Performance Optimization',
+        'description': 'Optimizes databases, queries, and pagination for efficient large-scale applications.',
+        'tags': ['Database Optimization', 'Pagination', 'High Performance']
+    },
+    {
+        'icon_class': 'fas fa-shopping-cart',
+        'title': 'E-commerce Solutions',
+        'description': 'Develops full-featured e-commerce platforms with payments, inventory management, and order processing.',
+        'tags': ['E-commerce', 'Payment Gateways', 'Inventory Management', 'Order Processing']
+    },
+]
+
+
+
+recommendation = {
+    'name': 'Djinee John',
+    'text': "I highly recommend Ajayi Adeboye, who was a backend engineer intern during our 5th cohort at InternPulse. During his time with us, he displayed remarkable technical skills and a strong work ethic. Adeboye contributed significantly to Renergy Hub, a cleantech platform, showing his ability to apply his backend engineering expertise in real-world scenarios. He was always proactive in solving complex problems, and his collaboration with the team was seamless. Adeboye consistently went above and beyond, and his leadership in his role was evident as he contributed to the platform\'s development and performance.",
+    'author': 'Founder and Chief Mentor',
+    'position': 'InternPulse',
+}
+
+
+
 def home_page_view(request):
-    # Generate random positions for animated elements
     num_elements = 6
     positions = [
         {
@@ -21,139 +585,23 @@ def home_page_view(request):
         }
         for _ in range(num_elements)
     ]
-
     context = {
         'positions': positions,
+        'personal_info': personal_info, 
+        'about_me_content': about_me_content, 
+        'technical_skills': technical_skills,
+        'key_projects': key_projects[:2], 
     }
-
     return render(request, 'main/index.html', context)
-
-
-def about_page_view(request):
-    context = {
-        'other_skills': ['PostgreSQL', 'SQLite', 'Pandas', 'NumPy', 'Selenium', 'GitHub', 'Data Analysis', 'API Integration', 'Cloud Deployment (Render)', 'Business Optimization', 'Financial Analytics', 'Next.js', 'React', 'Tailwind CSS', 'Supabase', 'Vercel'],
-        'work_experience': [
-            {
-                'title': 'Backend Development Intern',
-                'company': 'InternPulse (Remote)',
-                'duration': 'October 2024 – Present',
-                'responsibilities': [
-                    'Designed and implemented scalable backend APIs for Library Management, Healthcare Appointment, and Product Management systems.',
-                    'Collaborated with cross-functional teams to refine API functionality, ensuring robust filtering, search capabilities, and error handling.',
-                    'Automated data scraping using Selenium to support the analytics team.',
-                    'Built financial analytics APIs, integrating databases with external APIs to generate real-time insights.'
-                ]
-            },
-            {
-                'title': 'Operations Support',
-                'company': 'Premier Lottery, Lagos',
-                'duration': '2017 – Present',
-                'responsibilities': [
-                    'Managed operations across 50+ outlets, improving efficiency by 15% through supervision, data-driven decision-making, and performance monitoring.',
-                    'Adapted to economic shifts by optimizing budgets and achieving a 20% increase in sales over three years.',
-                    'Conducted audits and ensured regulatory compliance, safeguarding the company from financial risks.'
-                ]
-            }
-        ],
-        'education': {
-            'degree': 'Bachelor of Science in Accounting',
-            'university': 'Olabisi Onabanjo University'
-        },
-        'certifications': [
-            'Backend with Python Django (Univelcity)',
-            'Data Analytics Professional Program (One Campus Academy)'
-        ],
-        'projects': [
-            {
-                'title': 'Dolapo Udekwe Makeup Artist Website',
-                'short_description': 'Full-stack Next.js website for a professional makeup artist',
-                'technologies': ['Next.js', 'React', 'Tailwind CSS', 'Supabase', 'Vercel'],
-                'github_url': 'https://github.com/officialmelvinp/makeup_website',
-                'live_link': 'https://dolapoudekwe.co.uk',
-                'details': [
-                    'Developed a responsive full-stack website using Next.js and Tailwind CSS',
-                    'Implemented an online booking system with real-time availability',
-                    'Integrated with Supabase for backend functionality and data management',
-                    'Utilized server-side rendering for improved SEO performance',
-                    'Deployed and managed the site using Vercel for optimal performance'
-                ]
-            },
-            {
-                'title': 'Library API',
-                'short_description': 'Comprehensive library management system',
-                'technologies': ['Python', 'Django', 'PostgreSQL', 'Django REST Framework'],
-                'github_url': 'https://github.com/officialmelvinp/library-api',
-                'details': [
-                    'Developed a robust API for managing library resources and user interactions',
-                    'Implemented advanced filtering and search capabilities',
-                    'Integrated with PostgreSQL for efficient data management',
-                    'Utilized Django signals for automated status updates and notifications'
-                ]
-            },
-            {
-                'title': 'IMF Web Scraping',
-                'short_description': 'Data analysis of IMF economic indicators',
-                'technologies': ['Python', 'BeautifulSoup', 'Pandas', 'NumPy'],
-                'github_url': 'https://github.com/officialmelvinp/group5-da-dev-db',
-                'details': [
-                    'Automated data extraction from IMF website using BeautifulSoup',
-                    'Performed comprehensive analysis of economic indicators using Pandas and NumPy',
-                    'Generated visualizations to highlight trends and patterns in global economic data',
-                    'Produced actionable insights for economic forecasting and policy analysis'
-                ]
-            },
-            {
-                'title': 'Healthcare Appointment',
-                'short_description': 'Appointment booking system for healthcare',
-                'technologies': ['Python', 'Django', 'PostgreSQL', 'Django REST Framework'],
-                'github_url': 'https://github.com/officialmelvinp/healthcare_app',
-                'details': [
-                    'Built a secure and efficient appointment booking system for healthcare providers',
-                    'Implemented real-time scheduling and management features',
-                    'Integrated with healthcare provider calendars for seamless coordination',
-                    'Developed automated reminders and notifications for patients and staff'
-                ]
-            },
-            {
-                'title': 'Financial Analytics for Renergy Hub',
-                'short_description': 'Real-time financial analytics system',
-                'technologies': ['Python', 'Django', 'Pandas', 'NumPy', 'Financial APIs'],
-                'github_url': 'https://github.com/InternPulse/renergy-hub-django-backend',
-                'live_link': 'https://www.renergyhub.com.ng',
-                'details': [
-                    'Developed a real-time financial analytics system for renewable energy projects',
-                    'Created custom dashboards for different stakeholders to visualize key metrics',
-                    'Implemented predictive analytics for project outcomes and financial forecasting',
-                    'Integrated with multiple data sources and financial APIs for comprehensive analysis'
-                ]
-            },
-            {
-                'title': 'Product Management',
-                'short_description': 'Efficient product management system',
-                'technologies': ['Python', 'Django', 'SQLite'],
-                'github_url': 'https://github.com/officialmelvinp/product_management',
-                'details': [
-                    'Designed and implemented a product management system for e-commerce platforms',
-                    'Developed features for inventory tracking, order processing, and supplier management',
-                    'Implemented automated reordering system based on inventory levels and sales data',
-                    'Created analytics and reporting tools for product performance evaluation'
-                ]
-            }
-        ]
-    }
-    return render(request, 'main/about.html', context)
-
 
 def contact_page_view(request):
     if request.method == 'POST':
         try:
-            # Parse the JSON data from the request body
             data = json.loads(request.body)
             name = data.get('name')
             email = data.get('email')
             message = data.get('message')
 
-            # Prepare email content
             subject = f'Contact Form Message from {name}'
             email_message = f"""
             Name: {name}
@@ -161,18 +609,14 @@ def contact_page_view(request):
             Message:
             {message}
             """
-            
-            # Send email using CONTACT_EMAIL instead of ADMIN_EMAIL
             send_mail(
                 subject=subject,
                 message=email_message,
                 from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[settings.CONTACT_EMAIL],  # Use CONTACT_EMAIL here
+                recipient_list=[settings.CONTACT_EMAIL],
                 fail_silently=False,
             )
-
             return JsonResponse({'status': 'success', 'message': 'Email sent successfully!'})
-
         except Exception as e:
             import traceback
             print(f"Error sending email: {str(e)}")
@@ -181,232 +625,49 @@ def contact_page_view(request):
                 'status': 'error',
                 'message': str(e) if settings.DEBUG else 'Failed to send message. Please try again.'
             }, status=500)
-
     return render(request, 'main/contact.html')
 
 def contact_success_view(request):
     return render(request, "main/contact_success.html")
 
-
-
-
 def portfolio_page_view(request):
-    projects = [
-        {
-            'id': 'library-api',
-            'title': 'Library API',
-            'short_description': 'Comprehensive library management system',
-            'image': 'img/library.jpg',
-            'category': 'API',
-            'github_url': 'https://github.com/officialmelvinp/library-api'
-        },
-        {
-            'id': 'imf-analysis',
-            'title': 'IMF Web Scraping',
-            'short_description': 'Data analysis of IMF economic indicators',
-            'image': 'img/imf.jpg',
-            'category': 'Data Analysis',
-            'github_url': 'https://github.com/officialmelvinp/group5-da-dev-db'
-        },
-        {
-            'id': 'healthcare-app',
-            'title': 'Healthcare Appointment',
-            'short_description': 'Appointment booking system for healthcare',
-            'image': 'img/health.jpg',
-            'category': 'API',
-            'github_url': 'https://github.com/officialmelvinp/healthcare_app'
-        },
-        {
-            'id': 'renergy-hub',
-            'title': 'Financial Analytics for Renergy Hub',
-            'short_description': 'Real-time financial analytics system',
-            'image': 'img/renergy.jpg',
-            'category': 'Data Analysis',
-            'github_url': 'https://github.com/InternPulse/renergy-hub-django-backend',
-            'live_link': 'https://www.renergyhub.com.ng'
-        },
-        {
-            'id': 'product-management',
-            'title': 'Product Management',
-            'short_description': 'Efficient product management system',
-            'image': 'img/product.jpg',
-            'category': 'Management',
-            'github_url': 'https://github.com/officialmelvinp/product_management'
-        },
-        {
-            'id': 'dolapo-udekwe-makeup',
-            'title': 'Dolapo Udekwe Makeup Artist Website',
-            'short_description': 'Full-stack Next.js website for a professional makeup artist',
-            'image': 'img/dolapo.jpeg',
-            'category': 'Full-Stack Development',
-            'github_url': 'https://github.com/officialmelvinp/makeup_website',
-            'live_link': 'https://dolapoudekwe.co.uk',
-        },
-    ]
-    services = [
-        {
-            'icon': 'bi bi-code-slash',
-            'title': 'Backend Development',
-            'description': 'Scalable and efficient server-side solutions.',
-            'tags': ['Python', 'Django', 'API Development']
-        },
-        {
-            'icon': 'bi bi-graph-up',
-            'title': 'Data Analysis',
-            'description': 'Insightful data processing and visualization.',
-            'tags': ['Python', 'Pandas', 'Data Visualization']
-        },
-        {
-            'icon': 'bi bi-gear',
-            'title': 'Business Process Optimization',
-            'description': 'Streamlining operations for maximum efficiency.',
-            'tags': ['Process Mapping', 'Automation', 'KPI Tracking']
-        }
-    ]
-    
-    recommendation = {
-            'name': 'Djinee john',
-            'text': "I highly recommend Ajayi Adeboye, who was a backend engineer intern during our 5th cohort at InternPulse. During his time with us, he displayed remarkable technical skills and a strong work ethic. Adeboye contributed significantly to Renergy Hub, a cleantech platform, showing his ability to apply his backend engineering expertise in real-world scenarios. He was always proactive in solving complex problems, and his collaboration with the team was seamless. Adeboye consistently went above and beyond, and his leadership in his role was evident as he contributed to the platform's development and performance.",
-            'author': 'Founder and Chief Mentor',
-            'position': 'InternPulse',
-    }
-    
     context = {
-        'projects': projects,
-        'services': services,
-        'recommendation': recommendation
-        
+        'personal_info': personal_info,
+        'professional_summary': professional_summary,
+        'about_me_content': about_me_content,
+        'skills_showcase_data': skills_showcase_data,
+        'internpulse_achievement': internpulse_achievement,
+        'wekume_certificate': wekume_certificate,
+        'technical_skills': technical_skills,
+        'professional_experience': professional_experience,
+        'key_projects': key_projects, 
+        'education': education,
+        'certifications': certifications,
+        'core_competencies': core_competencies,
+        'recommendation': recommendation,
     }
+    
+    print("\n--- Debugging key_projects data ---")
+    for project in key_projects:
+        print(f"ID: {project.get('id')}, Title: {project.get('title')}, Image: {project.get('images', ['N/A'])[0]}")
+    print("--- End Debugging key_projects data ---\n")
+    
     return render(request, "main/portfolio.html", context)
 
 def portfolio_detail_view(request, project_id):
-    projects = {
-        'library-api': {
-            'title': 'Library API',
-            'description': 'A comprehensive library management system with advanced features and robust API',
-            'category': 'Backend Development',
-            'project_type': 'API Development',
-            'project_date': 'October 2024',
-            'github_url': 'https://github.com/officialmelvinp/library-api',
-            'details': [
-                'Advanced filtering capabilities by title, author, and genre',
-                'Integration with PostgreSQL for efficient data management',
-                'Implementation of Django signals for automated status updates',
-                'Deployment on Render for real-time data handling and scalability'
-            ],
-            'images': [
-                'img/library.jpg',
-               
-            ]
-        },
-        
-         'dolapo-udekwe-makeup': {
-            'title': 'Dolapo Udekwe Makeup Artist Website',
-            'description': 'A full-stack Next.js website for a professional makeup artist, featuring a responsive design, online booking system, and portfolio showcase.',
-            'category': 'Full-Stack Development',
-            'project_type': 'Web Development',
-            'project_date': 'March 2025',
-            'github_url': 'https://github.com/officialmelvinp/makeup_website',
-            'live_link': 'https://dolapoudekwe.co.uk',
-            'details': [
-                'Responsive design using Tailwind CSS',
-                'Server-side rendering with Next.js for improved SEO',
-                'Integration with Supabase for backend functionality',
-                'Online booking system with real-time availability',
-                'Dynamic portfolio showcase with image optimization',
-                'Admin dashboard for content management'
-            ],
-            'images': [
-                'img/dolapo.jpeg',
-            ],
-            'technologies': ['Next.js', 'React', 'Tailwind CSS', 'Supabase', 'Vercel']
-        },
-        'imf-analysis': {
-            'title': 'IMF Web Scraping',
-            'description': 'Data analysis of IMF economic indicators',
-            'category': 'Data Analysis',
-            'project_type': 'Web Scraping & Analysis',
-            'project_date': 'September 2024',
-            'github_url': 'https://github.com/officialmelvinp/group5-da-dev-db',
-            'details': [
-                'Automated data extraction from IMF website',
-                'Comprehensive analysis of economic indicators',
-                'Visualization of trends and patterns',
-                'Insights generation for economic forecasting'
-            ],
-            'images': [
-                'img/imf.jpg',
-                
-            ]
-        },
-        'healthcare-app': {
-            'title': 'Healthcare Appointment',
-            'description': 'Appointment booking system for healthcare providers',
-            'category': 'Backend Development',
-            'project_type': 'API Development',
-            'project_date': 'November 2024',
-            'github_url': 'https://github.com/officialmelvinp/healthcare_app',
-            'details': [
-                'Secure patient data management',
-                'Real-time appointment scheduling and management',
-                'Integration with healthcare provider calendars',
-                'Automated reminders and notifications'
-            ],
-            'images': [
-                'img/health.jpg',
-                
-            ]
-        },
-        'renergy-hub': {
-            'title': 'Financial Analytics for Renergy Hub',
-            'description': 'Real-time financial analytics system for renewable energy projects',
-            'category': 'Data Analysis',
-            'project_type': 'Financial Analytics',
-            'project_date': 'December 2024',
-            'github_url': 'https://github.com/InternPulse/renergy-hub-django-backend',
-            'live_link': 'https://www.renergyhub.com.ng',
-            'details': [
-                'Real-time data processing of financial metrics',
-                'Custom dashboards for different stakeholders',
-                'Predictive analytics for project outcomes',
-                'Integration with multiple data sources and APIs'
-            ],
-            'images': [
-                'img/renergy.jpg',
-                
-            ]
-        },
-        'product-management': {
-            'title': 'Product Management',
-            'description': 'Efficient product management system for e-commerce platforms',
-            'category': 'Management',
-            'project_type': 'Backend Development',
-            'project_date': 'January 2025',
-            'github_url': 'https://github.com/officialmelvinp/product_management',
-            'details': [
-                'Inventory tracking and management',
-                'Order processing and fulfillment',
-                'Supplier management and reordering automation',
-                'Analytics and reporting for product performance'
-            ],
-            'images': [
-                'img/product.jpg',
-                
-            ]
-        }
-    }
-    project = projects.get(project_id)
+    projects_dict = {p['id']: p for p in key_projects}
+    project = projects_dict.get(project_id)
+
     if project is None:
         raise Http404("Project does not exist")
+
+    project['main_image'] = project.get('images', [None])[0]
+
     return render(request, "main/portfolio-details.html", {'project': project})
 
 
-
-
-
-    # Add songs with titles, links, and image URLs
 def music_portfolio_view(request):
-    # Bio information
+    
     name = getattr(settings, 'ARTIST_NAME', 'Melvin-P')
     bio = getattr(
         settings,
@@ -433,7 +694,7 @@ def music_portfolio_view(request):
         ),
     )
     profile_image = getattr(settings, 'ARTIST_PROFILE_IMAGE', 'img/winner.jpeg')
-    # Existing songs list
+    
     songs = [
         {
             'title': 'Stream Melvin P Wonder on Youtube',
@@ -448,7 +709,7 @@ def music_portfolio_view(request):
         {
             'title': 'Wonder',
             'link': 'https://linktr.ee/melvin_p',
-            'image': 'img/wonder.jpeg' 
+            'image': 'img/wonder.jpeg'
         },
         {
             'title': 'Thanking God',
@@ -461,106 +722,11 @@ def music_portfolio_view(request):
             'image': 'img/happy_day.jpeg'
         },
     ]
-
     context = {
         'name': name,
         'bio': bio,
         'profile_image': profile_image,
         'songs': songs,
+        'music_prowess_data': music_prowess_data, 
     }
-
     return render(request, 'main/music_portfolio.html', context)
-
-def resume_page_view(request):
-    return render(request, "main/resume.html")
-
-def services_page_view(request):
-    services = [
-        {
-            'title': 'Backend Development',
-            'icon': 'fas fa-code',
-            'description': 'Robust and scalable backend solutions tailored to your business needs.',
-            'features': [
-                'Custom API development',
-                'Database design and optimization',
-                'Authentication and security implementation',
-            ],
-            'technologies': ['Python', 'Django', 'PostgreSQL', 'RESTful APIs']
-        },
-        {
-            'title': 'Data Engineering & Analytics',
-            'icon': 'fas fa-chart-line',
-            'description': 'Transform raw data into actionable insights for informed decision-making.',
-            'features': [
-                'Data pipeline development',
-                'ETL process implementation',
-                'Advanced analytics and visualizations',
-            ],
-            'technologies': ['Pandas', 'NumPy', 'Selenium']
-        },
-        {
-            'title': 'Financial Analysis',
-            'icon': 'fas fa-calculator',
-            'description': 'Comprehensive financial solutions to drive your business forward.',
-            'features': [
-                'Financial modeling and forecasting',
-                'Business intelligence dashboards',
-                'Risk assessment and management',
-            ],
-            'technologies': ['Excel', 'Python', 'SQL']
-        },
-        {
-            'title': 'Process Optimization',
-            'icon': 'fas fa-cogs',
-            'description': 'Streamline operations and boost efficiency through technology integration.',
-            'features': [
-                'Business process analysis',
-                'Workflow automation',
-                'Performance metrics and KPI tracking',
-            ],
-            'technologies': ['Lean Six Sigma', 'Automation tools', 'Process mapping software']
-        },
-        {
-            'title': 'System Architecture',
-            'icon': 'fas fa-network-wired',
-            'description': 'Design scalable and efficient system architectures for optimal performance.',
-            'features': [
-                'Microservices architecture design',
-                'Cloud-based solutions implementation',
-                'Scalability and performance optimization',
-            ],
-            'technologies': ['AWS', 'Docker', 'Kubernetes', 'Microservices']
-        },
-    #     {
-    #         'title': 'Innovation Consulting',
-    #         'icon': 'fas fa-lightbulb',
-    #         'description': 'Strategic guidance on technology adoption and digital transformation.',
-    #         'features': [
-    #             'Technology stack assessment and recommendations',
-    #             'Digital transformation roadmap development',
-    #             'Emerging technology integration strategies',
-    #         ],
-    #         'technologies': ['AI/ML', 'Blockchain', 'IoT', 'Cloud Computing']
-    #     },
-     ]
-
-    testimonials = [
-        
-        {
-            'content': "Ajayi's expertise in backend development and data analytics has been instrumental in scaling our operations. His insights have directly contributed to a 30% increase in our operational efficiency.",
-            'author': 'Pere Afezu'
-        },
-        {
-            'content': 'The financial analysis tools developed by Ajayi have revolutionized our decision-making process. We now have real-time insights that have improved our profitability by 25%.',
-            'author': 'ifeka odira hilary'
-        },
-        
-    ]
-
-    context = {
-        'services': services,
-        'testimonials': testimonials
-    }
-
-    return render(request, 'main/services.html', context)
-

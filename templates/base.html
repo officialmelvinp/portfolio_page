@@ -4,20 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajayi Adeboye Portfolio</title>
+    <title>{% block title %}Ajayi Adeboye Portfolio{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Ajayi Adeboye Samuel is a full-stack developer specializing in Django and Next.js, API architecture, and e-commerce solutions. Explore his projects and expertise.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}full-stack developer, Django, Next.js, API, e-commerce, Python, React, web development, portfolio, Ajayi Adeboye Samuel{% endblock %}">
+
+    {# Open Graph / Social Media Tags #}
+    <meta property="og:title" content="{% block og_title %}{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.jpg' %}{% endblock %}"> {# Default OG image, ensure this path is valid #}
+    <meta property="og:url" content="{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Ajayi Adeboye Samuel Portfolio">
+
+    {# Twitter Card Tags #}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/twitter-image.jpg' %}{% endblock %}"> {# Default Twitter image, ensure this path is valid #}
+    <meta name="twitter:creator" content="@officialmelvinp"> {# Replace with your Twitter handle #}
+
+    {# Canonical URL #}
+    <link rel="canonical" href="{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}">
+
+    {# Favicon #}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon"> {# Ensure you have a favicon.ico in your static/img/ folder #}
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> {# Added Font Awesome for icons #}
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .nav-link {
           position: relative;
-          color: #fff;
+          color: #fff; /* White text for dark header */
           text-decoration: none;
           padding-bottom: 5px;
           transition: color 0.3s ease;
         }
-
         .nav-link::after {
           content: '';
           position: absolute;
@@ -25,16 +49,14 @@
           height: 2px;
           bottom: 0;
           left: 0;
-          background-color: #3498db;
+          background-color: #22d3ee; /* Cyan-400 for underline */
           transform: scaleX(0);
           transform-origin: bottom right;
           transition: transform 0.3s ease;
         }
-
         .nav-link:hover {
-          color: #3498db;
+          color: #22d3ee; /* Cyan-400 on hover */
         }
-
         .nav-link:hover::after {
           transform: scaleX(1);
           transform-origin: bottom left;
@@ -42,9 +64,8 @@
     </style>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
-
 <!-- Header Section -->
-<header id="header" class="header fixed w-full top-0 left-0 z-50 bg-gradient-to-r from-gray-900 to-blue-900 text-white shadow-lg">
+<header id="header" class="header fixed w-full top-0 left-0 z-50 bg-gradient-to-r from-gray-950 to-zinc-900 text-white shadow-lg">
   <div class="container mx-auto px-4 py-4">
     <div class="flex justify-between items-center">
       <a href="{% url 'home' %}" class="logo flex items-center space-x-2">
@@ -53,17 +74,13 @@
           <span class="font-light" style="font-family: 'Raleway', sans-serif;">Adeboye</span>
         </h1>
       </a>
-
       <nav id="navmenu" class="hidden md:flex space-x-6">
         <a href="{% url 'home' %}" class="nav-link">Home</a>
-        <a href="{% url 'about' %}" class="nav-link">About</a>
-        <a href="{% url 'resume' %}" class="nav-link">Resume</a>
-        <a href="{% url 'services' %}" class="nav-link">Services</a>
+        {# 'about' and 'resume' pages are consolidated into 'portfolio' #}
         <a href="{% url 'portfolio' %}" class="nav-link">Portfolio</a>
         <a href="{% url 'music_portfolio' %}" class="nav-link">Music</a>
         <a href="{% url 'contact' %}" class="nav-link">Contact</a>
       </nav>
-
       <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -71,51 +88,46 @@
       </button>
     </div>
   </div>
-
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-gray-800 p-4">
-    <a href="{% url 'home' %}" class="block py-2 text-white hover:bg-gray-700">Home</a>
-    <a href="{% url 'about' %}" class="block py-2 text-white hover:bg-gray-700">About</a>
-    <a href="{% url 'resume' %}" class="block py-2 text-white hover:bg-gray-700">Resume</a>
-    <a href="{% url 'services' %}" class="block py-2 text-white hover:bg-gray-700">Services</a>
-    <a href="{% url 'portfolio' %}" class="block py-2 text-white hover:bg-gray-700">Portfolio</a>
-    <a href="{% url 'music_portfolio' %}" class="block py-2 text-white hover:bg-gray-700">Music</a>
-    <a href="{% url 'contact' %}" class="block py-2 text-white hover:bg-gray-700">Contact</a>
+  <div id="mobile-menu" class="hidden md:hidden bg-zinc-800 p-4"> {# Changed from gray-800 #}
+    <a href="{% url 'home' %}" class="block py-2 text-white hover:bg-zinc-700">Home</a> {# Changed from gray-700 #}
+    {# 'about' and 'resume' pages are consolidated into 'portfolio' #}
+    <a href="{% url 'portfolio' %}" class="block py-2 text-white hover:bg-zinc-700">Portfolio</a>
+    <a href="{% url 'music_portfolio' %}" class="block py-2 text-white hover:bg-zinc-700">Music</a>
+    <a href="{% url 'contact' %}" class="block py-2 text-white hover:bg-zinc-700">Contact</a>
   </div>
 </header>
-
 <main class="flex-grow container mx-auto px-4 py-8 mt-20">
     {% block content %}
     {% endblock content %}
 </main>
-
 <!-- Footer Section -->
-<footer id="footer" class="bg-gradient-to-r from-gray-900 to-blue-900 text-white py-8 mt-auto">
+<footer id="footer" class="bg-gradient-to-r from-gray-950 to-zinc-900 text-white py-8 mt-auto"> {# Changed from gray-900 to blue-900 #}
   <div class="container mx-auto px-4">
     <div class="text-center mb-4">
       <p>© <span>Copyright</span> <strong class="px-1 sitename">Ajayi Adeboye</strong> <span>All Rights Reserved</span></p>
     </div>
     <div class="flex justify-center space-x-4">
-      <a href="https://x.com/officialmelvinp" target="_blank" rel="noopener noreferrer" class="text-white hover:text-blue-400 transition-colors duration-300">
+      <a href="https://x.com/officialmelvinp" target="_blank" rel="noopener noreferrer" class="text-white hover:text-cyan-400 transition-colors duration-300"> {# Changed hover color #}
         <i class="bi bi-twitter-x text-xl"></i>
       </a>
-      <a href="https://www.facebook.com/share/15fDWzwD6d" target="_blank" rel="noopener noreferrer" class="text-white hover:text-blue-400 transition-colors duration-300">
+      <a href="https://www.facebook.com/share/15fDWzwD6d" target="_blank" rel="noopener noreferrer" class="text-white hover:text-cyan-400 transition-colors duration-300"> {# Changed hover color #}
         <i class="bi bi-facebook text-xl"></i>
       </a>
-      <a href="https://www.instagram.com/officialmelvinp" target="_blank" rel="noopener noreferrer" class="text-white hover:text-blue-400 transition-colors duration-300">
+      <a href="https://www.instagram.com/officialmelvinp" target="_blank" rel="noopener noreferrer" class="text-white hover:text-cyan-400 transition-colors duration-300"> {# Changed hover color #}
         <i class="bi bi-instagram text-xl"></i>
       </a>
-      <a href="https://www.linkedin.com/in/adeboye-melvin" target="_blank" rel="noopener noreferrer" class="text-white hover:text-blue-400 transition-colors duration-300">
+      <a href="https://www.linkedin.com/in/adeboye-melvin" target="_blank" rel="noopener noreferrer" class="text-white hover:text-cyan-400 transition-colors duration-300"> {# Changed hover color #}
         <i class="bi bi-linkedin text-xl"></i>
       </a>
-      <a href="https://github.com/officialmelvinp" target="_blank" rel="noopener noreferrer" class="text-white hover:text-blue-400 transition-colors duration-300">
+      <a href="https://github.com/officialmelvinp" target="_blank" rel="noopener noreferrer" class="text-white hover:text-cyan-400 transition-colors duration-300"> {# Changed hover color #}
         <i class="bi bi-github text-xl"></i>
       </a>
     </div>
   </div>
 </footer>
-
 <!-- Vendor JS Files -->
+{# Assuming these static files exist and are correctly configured in Django's STATICFILES_DIRS #}
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'vendor/aos/aos.js' %}"></script>
 <script src="{% static 'vendor/waypoints/noframework.waypoints.js' %}"></script>
@@ -124,14 +136,12 @@
 <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
 <script src="{% static 'vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
 <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-
 <!-- Main JS File -->
 <script src="{% static 'js/main.js' %}"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-
     if (mobileMenuButton && mobileMenu) {
       mobileMenuButton.addEventListener('click', function() {
         mobileMenu.classList.toggle('hidden');

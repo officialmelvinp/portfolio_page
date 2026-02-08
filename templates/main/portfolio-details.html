@@ -1,13 +1,42 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}{{ project.title }} - Ajayi Adeboye Portfolio{% endblock %}
+{% block meta_description %}{{ project.short_description|truncatechars:160 }}{% endblock %}
+{% block meta_keywords %}{{ project.technologies|join:", " }}, {{ project.category }}, {{ project.title }}, Ajayi Adeboye Samuel{% endblock %}
+
+{% block og_title %}{{ project.title }} - Ajayi Adeboye Portfolio{% endblock %}
+{% block og_description %}{{ project.short_description|truncatechars:160 }}{% endblock %}
+{% block og_image %}
+{% if project.main_image %}
+  {{ request.scheme }}://{{ request.get_host }}{% static project.main_image %}
+{% else %}
+  {{ request.scheme }}://{{ request.get_host }}{% static 'img/default_project_image.jpg' %}
+{% endif %}
+{% endblock %}
+{% block og_url %}{{ request.build_absolute_uri }}{% endblock %}
+
+{% block twitter_title %}{{ project.title }} - Ajayi Adeboye Portfolio{% endblock %}
+{% block twitter_description %}{{ project.short_description|truncatechars:160 }}{% endblock %}
+{% block twitter_image %}
+{% if project.main_image %}
+  {{ request.scheme }}://{{ request.get_host }}{% static project.main_image %}
+{% else %}
+  {{ request.scheme }}://{{ request.get_host }}{% static 'img/default_project_image.jpg' %}
+{% endif %}
+{% endblock %}
+
+{% block canonical_url %}{{ request.build_absolute_uri }}{% endblock %}
+
 {% block content %}
 <div class="min-h-screen bg-gradient-to-br from-gray-900 to-blue-900 text-white py-20">
   <div class="container mx-auto px-4">
     <!-- Header -->
     <header class="text-center mb-16 animate__animated animate__fadeIn">
-      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">{{ project.title }}</h1>
-      <p class="text-xl md:text-2xl text-blue-200">{{ project.description }}</p>
+      <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
+        {{ project.title }}
+      </h1>
+      <p class="text-xl md:text-2xl text-zinc-300">{{ project.short_description }}</p>
     </header>
 
     <!-- Project Details -->
@@ -15,12 +44,19 @@
       <!-- Project Images -->
       <div class="space-y-8 animate__animated animate__fadeInLeft">
         <div class="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl">
-          <img src="{% static project.images.0 %}" alt="{{ project.title }} - Main Image" class="w-full h-64 object-cover">
+          <img 
+              src="{% if project.main_image %}{% static project.main_image %}{% else %}{% static 'img/default_project_image.jpg' %}{% endif %}" 
+              alt="{{ project.title }} - Main Image" 
+              class="w-full h-64 object-cover">
         </div>
+
         <div class="grid grid-cols-3 gap-4">
           {% for image in project.images|slice:"1:" %}
             <div class="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl">
-              <img src="{% static image %}" alt="{{ project.title }} - Image {{ forloop.counter|add:"1" }}" class="w-full h-24 object-cover">
+              <img 
+                  src="{% static image %}" 
+                  alt="{{ project.title }} - Image {{ forloop.counter|add:"1" }}" 
+                  class="w-full h-24 object-cover">
             </div>
           {% endfor %}
         </div>
@@ -29,21 +65,21 @@
       <!-- Project Info -->
       <div class="space-y-8 animate__animated animate__fadeInRight">
         <div class="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl p-6">
-          <h3 class="text-2xl font-bold mb-4 text-emerald-400">Project Details</h3>
-          <ul class="space-y-2 text-blue-200">
+          <h3 class="text-2xl font-bold mb-4 text-teal-400">Project Details</h3>
+          <ul class="space-y-2 text-zinc-300">
             <li><span class="font-semibold">Category:</span> {{ project.category }}</li>
             <li><span class="font-semibold">Project Type:</span> {{ project.project_type }}</li>
             <li><span class="font-semibold">Date:</span> {{ project.project_date }}</li>
             <li>
-              <span class="font-semibold">GitHub:</span> 
-              <a href="{{ project.github_url }}" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors duration-300">
+              <span class="font-semibold">GitHub:</span>
+              <a href="{{ project.github_url }}" target="_blank" class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300">
                 View Repository <i class="bi bi-github ml-1"></i>
               </a>
             </li>
             {% if project.live_link %}
             <li>
-              <span class="font-semibold">Live Site:</span> 
-              <a href="{{ project.live_link }}" target="_blank" class="text-blue-400 hover:text-blue-300 transition-colors duration-300">
+              <span class="font-semibold">Live Site:</span>
+              <a href="{{ project.live_link }}" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 transition-colors duration-300">
                 View Live <i class="bi bi-link-45deg ml-1"></i>
               </a>
             </li>
@@ -52,8 +88,8 @@
         </div>
 
         <div class="bg-white/10 backdrop-blur-md rounded-xl overflow-hidden shadow-2xl p-6">
-          <h3 class="text-2xl font-bold mb-4 text-emerald-400">Key Features</h3>
-          <ul class="list-disc list-inside space-y-2 text-blue-200">
+          <h3 class="text-2xl font-bold mb-4 text-teal-400">Key Features</h3>
+          <ul class="list-disc list-inside space-y-2 text-zinc-300">
             {% for detail in project.details %}
               <li>{{ detail }}</li>
             {% endfor %}
@@ -76,14 +112,13 @@
 
     <!-- Navigation -->
     <div class="flex justify-center space-x-4 animate__animated animate__fadeInUp">
-      <a href="{% url 'portfolio' %}" class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-blue-500 transition-colors duration-300">
+      <a href="{% url 'portfolio' %}" class="inline-block bg-cyan-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-cyan-700 transition-colors duration-300">
         &larr; Back to Portfolio
       </a>
-      <a href="{% url 'contact' %}" class="inline-block bg-emerald-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-emerald-600 transition-colors duration-300">
+      <a href="{% url 'contact' %}" class="inline-block bg-teal-600 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-teal-700 transition-colors duration-300">
         Let's Discuss This Project
       </a>
     </div>
   </div>
 </div>
 {% endblock content %}
-
