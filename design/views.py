@@ -22,7 +22,7 @@ personal_info = {
         'github': 'https://github.com/officialmelvinp',
         'portfolio': 'https://www.elmelvip.com/portfolio',
     },
-    'resume_pdf': 'pdf/portfolio_cv.pdf',
+    'resume_pdf': 'pdf/Adeboye Ajayi Resume.pdf',
     'birthday': 'June 15th',
     'degree': 'B.Sc. Accounting',
     'freelance_status': 'Available',
@@ -39,22 +39,6 @@ Beyond engineering, I bring 15+ years of operations and business management expe
 Currently expanding into AI & NLP, focusing on Transformers, LLMs, LangChain, and intelligent backend systems. Open to Backend, Full-Stack, and AI-focused roles (remote or hybrid).
 
 """
-
-about_me_content = [
-"""
-I’m a Full-Stack Developer and Backend Engineer focused on building secure, scalable, real-world systems using Node.js, Express, MongoDB, PostgreSQL, and Python/Django. I approach software development with a product-driven mindset, designing systems that solve real operational problems, not just technical ones.
-
-With over a decade of experience in business management, I understand how technology supports decision-making, efficiency, and growth. This background allows me to bridge the gap between business needs and technical execution.
-
-My core expertise lies in backend architecture, including authentication and authorization, role-based access control, email verification workflows, payment integrations (Paystack), and RESTful API design. I prioritize security, clarity, and maintainability in every system I build.
-
-One of my recent projects is a Dental Clinic Appointment System backend, where I implemented secure JWT authentication, user onboarding, appointment scheduling, payment processing, and transactional email notifications.
-
-Beyond backend development, I work comfortably across the frontend with React and Next.js. This enables me to deliver complete end-to-end solutions and collaborate effectively across the stack.
-
-I’m also expanding into AI and NLP engineering, building a foundation in machine learning to support intelligent, data-driven applications in future systems.
-"""
-]
 
 
 #
@@ -588,7 +572,6 @@ def home_page_view(request):
     context = {
         'positions': positions,
         'personal_info': personal_info, 
-        'about_me_content': about_me_content, 
         'technical_skills': technical_skills,
         'key_projects': key_projects[:2], 
     }
@@ -634,7 +617,6 @@ def portfolio_page_view(request):
     context = {
         'personal_info': personal_info,
         'professional_summary': professional_summary,
-        'about_me_content': about_me_content,
         'skills_showcase_data': skills_showcase_data,
         'internpulse_achievement': internpulse_achievement,
         'wekume_certificate': wekume_certificate,
