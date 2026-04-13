@@ -60,40 +60,6 @@
       </p>
     </div>
   </section>
-{% comment %} 
-  <!-- About Me Section (Integrated from old about.html) -->
-  <section class="mb-12 md:mb-20">
-    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-cyan-400">
-      About Me
-    </h2>
-    <div class="grid md:grid-cols-3 gap-8 items-center">
-      <div class="md:col-span-1">
-        <img
-          src="{% static 'img/boye-4.jpg' %}"
-          alt="Ajayi Adeboye Samuel - Professional Portrait" {# Added alt text #}
-          class="rounded-lg shadow-2xl w-full hover:scale-105 transition-all duration-500 ease-in-out"
-        />
-      </div>
-      <div class="md:col-span-2">
-        <h3 class="text-2xl font-semibold mb-4 text-teal-300">{{ personal_info.name }}</h3>
-        {% for paragraph in about_me_content %}
-          <p class="text-lg mb-4 text-zinc-300">{{ paragraph }}</p>
-        {% endfor %}
-        <div class="grid grid-cols-2 gap-4 text-zinc-300">
-          <div>
-            <p><strong>Birthday:</strong> {{ personal_info.birthday }}</p>
-            <p><strong>Phone:</strong> {{ personal_info.contact.phone }}</p>
-            <p><strong>City:</strong> {{ personal_info.contact.location }}</p>
-          </div>
-          <div>
-            <p><strong>Degree:</strong> {{ personal_info.degree }}</p>
-            <p><strong>Email:</strong> {{ personal_info.contact.email }}</p>
-            <p><strong>Freelance:</strong> {{ personal_info.freelance_status }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> {% endcomment %}
 
   <!-- Skills Showcase (Integrated from old about.html) -->
   <section class="mb-12 md:mb-20">
