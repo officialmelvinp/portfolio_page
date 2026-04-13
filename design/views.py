@@ -342,6 +342,35 @@ key_projects = [
             'Resend', 'Nodemailer', 'Shadcn/UI', 'Tailwind CSS', 'Vercel', 'UUID', 'date-fns', 'sonner'
         ],
     },
+    
+    {
+    'id': 'oregon-co-landing-page',
+    'title': 'Oregon Co. Jewelry E-Commerce Landing Page',
+    'short_description': 'A premium jewelry e-commerce landing page built from scratch, replicating the design quality and functionality of a top US jewelry brand — fully responsive across mobile and desktop.',
+    'images': ['img/oregon-co.jpg'],  
+    'category': 'Frontend Development',
+    'project_type': 'E-commerce Landing Page',
+    'project_date': 'April 2026',
+    'github_url': 'https://github.com/officialmelvinp',  # add your repo link if you have one
+    'live_link': 'https://oregon-co-frontend-89dw.vercel.app',
+    'details': [
+        'Pixel-perfect responsive design across mobile and desktop — studied and replicated a live US e-commerce brand.',
+        'Animated hero section with auto-rotating ring, manual drag-to-rotate on both mobile and desktop using Framer Motion.',
+        'Timed "Drag to Rotate" hint overlay that fades out after 3.5 seconds.',
+        'Mega menu navigation on desktop with multi-column dropdowns and smooth hover transitions.',
+        'Mobile hamburger menu with accordion navigation and tappable sub-items.',
+        'Infinite auto-scrolling marquee carousel on mobile and react-slick continuous ticker on desktop.',
+        'Product carousel with snap-scroll on mobile and arrow-controlled slider on desktop.',
+        'Diamonds banner section with animated info buttons and video modal popups.',
+        'Performance optimized — LCP images preloaded with priority prop, all fill images include sizes prop.',
+        'Sections: Hero, Product Carousel, Diamonds Banner, Spring Gift Game, Bestselling Classics, Easy Ways, Why Customers, Financing Banner, About, Email Signup, Footer.',
+    ],
+    'technologies': [
+        'Next.js 14', 'React', 'TypeScript', 'Tailwind CSS',
+        'Framer Motion', 'React Slick', 'Next/Image', 'React Icons', 'Vercel'
+    ],
+},
+    
     {
         'id': 'chat-service-microservices',
         'title': 'Chat Service Microservices Architecture',
